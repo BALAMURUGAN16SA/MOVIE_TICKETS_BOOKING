@@ -77,8 +77,8 @@
                 <td>{{ movie[5] }}</td>
                 <td>{{ movie[6] }}</td>
                 <td>{{ movie[7] }}</td>
-                <td><button type="button" class="btn btn-primary" style="background-color:#023020;">UPDATE</button></td>
-                <td><button type="button" class="btn btn-danger">DELETE</button></td>
+                <td><a href = "/update_movie/{{ movie[0] }}"><button type="button" class="btn btn-primary" style="background-color:#023020;">UPDATE</button></a></td>
+                <td><a href = "/delete_movie/{{ movie[0] }}"><button type="button" class="btn btn-danger">DELETE</button></a></td>
               </tr>
               {% endfor %}
             </tbody>
@@ -87,8 +87,8 @@
       </div>
 
       <div class="bt">
-        <div class=" container-md mt-5"><a href = '/create_movie'><button type="button" class="create b btn  w-75">CREATE</button></a></div>
-        <div class=" container-md mt-2"><a><button type="button" class="back b btn w-75">BACK</button></a></div>
+        <div class=" container-md mt-5"><a href = '/insert_movie'><button type="button" class="create b btn  w-75">CREATE</button></a></div>
+        <div class=" container-md mt-2"><a href = '/back_from'><button type="button" class="back b btn w-75">BACK</button></a></div>
       </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

@@ -88,7 +88,7 @@
           </div>
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link nav-link-edit active" href="#">
+              <a class="nav-link nav-link-edit active" href="/create_movie">
                 <i class="fas fa-film"></i> <!-- Movie icon -->
                 &ensp;&ensp;Edit Movies
               </a>
@@ -119,16 +119,16 @@
       <div class="content col-md-9 offset-md-3"> <!-- Adjusted the offset for proper alignment -->
         <div class="container">
           <div class="row">
-            <!-- Number of Movies -->
-            <div class="col-md-6">
-              <div class="info-box">
-                <h5>Number of Movies: <span id="movieCount">0</span></h5>
-              </div>
-            </div>
             <!-- Number of Theaters -->
             <div class="col-md-6">
               <div class="info-box">
-                <h5>Number of Theaters: <span id="theaterCount">0</span></h5>
+                <h5>Number of Theaters: <span id="theaterCount">{{ theater_details|length }}</span></h5>
+              </div>
+            </div>
+            <!-- Number of Movies -->
+            <div class="col-md-6">
+              <div class="info-box">
+                <h5>Number of Movies: <span id="movieCount">{{ movie_details|length }}</span></h5>
               </div>
             </div>
           </div>
@@ -136,6 +136,7 @@
           <div class="row mt-4">
             <div class="col-md-12">
               <div class="info-box">
+                <h2 class="mb-3">Theater Details</h2>
                 <table class="table">
                   <thead>
                     <tr>
@@ -163,6 +164,7 @@
           <div class="row mt-4">
             <div class="col-md-12">
               <div class="info-box">
+                <h2 class="mb-3">Movie Details</h2>
                 <table class="table">
                   <thead>
                     <tr>
@@ -194,5 +196,7 @@
   <!-- Include Bootstrap JavaScript libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  
 </body>
 </html>

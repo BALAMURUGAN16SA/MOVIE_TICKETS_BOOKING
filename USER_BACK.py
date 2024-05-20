@@ -129,7 +129,7 @@ def check():
             movie_detail = cursor.fetchall()
             cursor.execute("SELECT THEATER_ID, THEATER_NAME, LOCATION FROM THEATERS;")
             theater_detail = cursor.fetchall()
-            return render_template('ADMIN.html', details = detail, movie_details = movie_detail, theater_details = theater_detail)
+            return render_template('ADMIN.html', movie_details = movie_detail, theater_details = theater_detail)
     else:
         return render_template("LOGIN.html", error = "Invalid Email or Password!")
    
@@ -585,10 +585,56 @@ def tickets():
 
 @app.route('/create_movie')
 def create_movie():
-    return render_template('EDIT_MOVIES_2.html')
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    cursor.execute("SELECT MOVIE_ID, MOVIE_NAME, GENRE, RATING, DESCRIPTION, URL, RUN_TIME, RDATE FROM MOVIES ORDER BY(MOVIE_ID);")
+    movie_detail = cursor.fetchall()
+    return render_template('EDIT_MOVIES_1.html', movie_details = movie_detail)
 
-@app.route('/insert_movie', methods=['POST'])
+@app.route('/insert_movie')
 def insert_movie():
+    movie_detail = (['','','','','','','',''])
+    return render_template('EDIT_MOVIES_2.html', movie_details = movie_detail, operation='insert')
+
+@app.route('/update_movie/<int:movie_id>')
+def update_movie(movie_id):
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    cursor.execute("SELECT MOVIE_ID, MOVIE_NAME, GENRE, RATING, DESCRIPTION, URL, RUN_TIME, RDATE FROM MOVIES WHERE MOVIE_ID = %s;", (movie_id, ))
+    movie_detail = cursor.fetchall()
+    return render_template('EDIT_MOVIES_2.html', movie_details = movie_detail, operation='update')
+
+@app.route('/delete_movie/<int:movie_id>')
+def delete_movie(movie_id):
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    delete_query = "DELETE FROM MOVIES WHERE MOVIE_ID = %s;"
+    cursor.execute(delete_query, (movie_id,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    cursor.execute("SELECT MOVIE_ID, MOVIE_NAME, GENRE, RATING, DESCRIPTION, URL, RUN_TIME, RDATE FROM MOVIES ORDER BY(MOVIE_ID);")
+    movie_detail = cursor.fetchall()
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return render_template('EDIT_MOVIES_1.html',movie_details = movie_detail)
+
+@app.route('/back_from')
+def back_from():
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    cursor.execute("SELECT MOVIES.MOVIE_ID, MOVIES.MOVIE_NAME, MOVIES.RDATE, rfm(MOVIES.MOVIE_ID) AS total_revenue FROM MOVIES;")
+    movie_detail = cursor.fetchall()
+    cursor.execute("SELECT THEATER_ID, THEATER_NAME, LOCATION FROM THEATERS;")
+    theater_detail = cursor.fetchall()
+    return render_template('ADMIN.html', movie_details = movie_detail, theater_details = theater_detail)
+
+@app.route('/commit_movie', methods=['POST'])
+def commit_movie():
     movie_id = request.form['movie_id']
     movie_name = request.form['movie_name']
     genre = request.form['genre']
@@ -612,9 +658,50 @@ def insert_movie():
     detail = (name, email, phone, location)
     conn = connect_to_database()
     cursor = conn.cursor()
-    cursor.execute("SELECT MOVIE_ID, MOVIE_NAME, GENRE, RATING, DESCRIPTION, URL, RUN_TIME, RDATE FROM MOVIES;")
+    cursor.execute("SELECT MOVIE_ID, MOVIE_NAME, GENRE, RATING, DESCRIPTION, URL, RUN_TIME, RDATE FROM MOVIES ORDER BY(MOVIE_ID);")
     movie_detail = cursor.fetchall()
     return render_template('EDIT_MOVIES_1.html', details = detail, movie_details = movie_detail)
+
+@app.route('/updated_movie', methods=['POST'])
+def updated_movie():
+    movie_id = request.form['movie_id']
+    movie_id = int(movie_id)
+    movie_name = request.form['movie_name']
+    genre = request.form['genre']
+    rating = request.form['rating']
+    description = request.form['description']
+    url = request.form['url']
+    run_time = request.form['run_time']
+    rdate = request.form['rdate']
+
+    try:
+        conn = connect_to_database()
+        cursor = conn.cursor()
+        update_query = "UPDATE MOVIES SET movie_name = %s, genre = %s, rating = %s, description = %s, url = %s, run_time = %s, rdate = %s WHERE movie_id = %s"
+        cursor.execute(update_query, (movie_name, genre, rating, description, url, run_time, rdate, movie_id))
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+
+        conn = connect_to_database()
+        cursor = conn.cursor()
+        cursor.execute("SELECT MOVIE_ID, MOVIE_NAME, GENRE, RATING, DESCRIPTION, URL, RUN_TIME, RDATE FROM MOVIES ORDER BY(MOVIE_ID);")
+        movie_detail = cursor.fetchall()
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return render_template('EDIT_MOVIES_1.html',movie_details = movie_detail)
+    
+    except Exception as e:
+        # If an error occurs, capture the error message
+        error_message = "Run time of Movie can't be updated once if screened."
+        # Fetch movie details again to pass to the template
+        conn = connect_to_database()
+        cursor = conn.cursor()
+        cursor.execute("SELECT MOVIE_ID, MOVIE_NAME, GENRE, RATING, DESCRIPTION, URL, RUN_TIME, RDATE FROM MOVIES WHERE MOVIE_ID = %s;", (movie_id,))
+        movie_detail = cursor.fetchall()
+        return render_template('EDIT_MOVIES_2.html', movie_details=movie_detail, error=error_message, operation='update')
 
 if __name__ == '__main__':
     app.run(debug=True)
