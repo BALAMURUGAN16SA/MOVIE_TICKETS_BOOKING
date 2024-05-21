@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=`, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .heading{
+
+            background-color: #128C7E;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 10px;
+            color: white;
+
+        }
+        .b{
+            color : white;
+            padding-left: 10px;
+        }
+        .create{
+            background-color: #128C7E;
+        }
+        .create:hover{
+            background-color: #023020;
+            color : white;
+        }
+        
+        .back{
+            background-color: #023020;
+        }
+        .back:hover{
+            background-color: #128C7E;
+            color : white;
+        }
+        .bt {
+            position: relative;
+            padding-left: 30%;
+            margin-left: -10%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <div class="heading container"><h1>SCREENINGS</h1></div>
+    <div class="container">
+    <table class="table table-hover table-stripped ">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">THEATER</th>
+                <th scope="col">MOVIE</th>
+                <th scope="col">SCREEN</th>
+                <th scope="col">SHOW_DATE</th>
+                <th scope="col">SHOW_TIME</th>
+                <th scope="col">UPDATE</th>
+                <th scope="col">DELETE</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for tm in tm_details %}
+              <tr>
+                <td>{{ tm[0] }} - {{ tm[1] }}</td>
+                <td>{{ tm[2] }} - {{ tm[3] }}</td>
+                <td>{{ tm[4] }}</td>
+                <td>{{ tm[5] }}</td>
+                <td>{{ tm[6] }}</td>
+                <td><a href = "/update_tm/{{ tm[0] }}/{{ tm[2] }}//{{ tm[4] }}//{{ tm[5] }}/{{ tm[6] }}"><button type="button" class="btn btn-primary" style="background-color:#023020;">UPDATE</button></a></td>
+                <td><a href = "/delete_tm/{{ tm[0] }}/{{ tm[1] }}//{{ tm[2] }}//{{ tm[3] }}/{{ tm[4] }}"><button type="button" class="btn btn-danger">DELETE</button></a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+      </table>
+      </div>
+
+      <div class="bt">
+        <div class=" container-md mt-5"><a href = '/insert_tm'><button type="button" class="create b btn  w-75">CREATE</button></a></div>
+        <div class=" container-md mt-2"><a href = '/back_from'><button type="button" class="back b btn w-75">BACK</button></a></div>
+      </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</body>
+</html>

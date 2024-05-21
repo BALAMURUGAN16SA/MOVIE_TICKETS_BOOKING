@@ -125,11 +125,11 @@ def check():
         else:
             conn = connect_to_database()
             cursor = conn.cursor()
-            cursor.execute("SELECT MOVIES.MOVIE_ID, MOVIES.MOVIE_NAME, MOVIES.RDATE, rfm(MOVIES.MOVIE_ID) AS total_revenue FROM MOVIES;")
+            cursor.execute("SELECT MOVIES.MOVIE_ID, MOVIES.MOVIE_NAME, MOVIES.RDATE FROM MOVIES;")
             movie_detail = cursor.fetchall()
             cursor.execute("SELECT THEATER_ID, THEATER_NAME, LOCATION FROM THEATERS;")
             theater_detail = cursor.fetchall()
-            return render_template('ADMIN.html', movie_details = movie_detail, theater_details = theater_detail)
+            return render_template('ADMIN.html', details = detail, movie_details = movie_detail, theater_details = theater_detail)
     else:
         return render_template("LOGIN.html", error = "Invalid Email or Password!")
    
@@ -419,8 +419,8 @@ def mt_movies(theater_id):
     cursor = conn.cursor()
     global theater_id_variable
     theater_id_variable = theater_id
-    today = '2024-05-11'
-    tomorrow = '2024-05-12'
+    today = '2024-04-11'
+    tomorrow = '2024-04-12'
 
     cursor.execute("""
         SELECT MOVIES.MOVIE_ID, MOVIES.MOVIE_NAME, MOVIES.GENRE, MOVIES.RATING, MOVIES.DESCRIPTION,
@@ -478,8 +478,8 @@ def tm_movies(theater_id, movie_id):
     cursor = conn.cursor()
     global theater_id_variable
     theater_id_variable = theater_id
-    today = '2024-05-11'
-    tomorrow = '2024-05-12'
+    today = '2024-04-11'
+    tomorrow = '2024-04-12'
 
     cursor.execute("""
         SELECT MOVIES.MOVIE_ID, MOVIES.MOVIE_NAME, MOVIES.GENRE, MOVIES.RATING, MOVIES.DESCRIPTION,
@@ -553,6 +553,14 @@ def booking(movie_id, screen_id, time, day):
     session['sc_s'] = screen_id
     session['ti_s'] = time
     session['da_s'] = day
+    #insert_query = "SELECT user_id from users where email = %s"
+    #cursor.execute(insert_query, email)
+    #user_id = cursor.fetchall()
+    #insert_query = "SELECT BOOKING_ID FROM BOOKINGS where user_id = %s and movie_id = %s and theater_id = %s and screen_id = %s and day = %s and show_time = %s"
+    #cursor.execute(insert_query, (user_id[0][0], movie_id, ti, screen_id, day, time))
+    #booking_id = cursor.fetchall()
+    #insert_query = "SELECT * FROM SEATS_BOOKED WHERE BOOKING_ID = %s"
+    #cursor.execute(insert_query, ())
     detail = (name, email, phone, location)
     return render_template('BOOKINGS.html', movies = movie, theaters = theater, screen  = screen_id, times =time, days = day, seats=seat,  details=detail)
 
@@ -565,8 +573,8 @@ def proceed():
     return jsonify({'selectedSeats': selected_seats_string})
 
 
-@app.route('/tickets')
-def tickets():
+@app.route('/bookings')
+def bookings():
     name = session.get('name')
     email = session.get('email')
     phone = session.get('phone')
@@ -575,13 +583,116 @@ def tickets():
     theater = session.get('th_s')
     screen = session.get('sc_s')
     time = session.get('ti_s')
+    short_time = time[:5]
     day = session.get('da_s')
+    # day_of_month = int(day[1].split()[0][:-2])  # Extracts '11' from '11th May'
+    # month_name = day[1].split()[1]  # Extracts 'May'
+    # year = 2024  # Assuming the year is always 2024
+    # month_number = datetime.strptime(month_name, "%B").month
+    # date_obj = datetime(year, month_number, day_of_month)
+    # formatted_date = date_obj.strftime("%d-%b-%Y")
+   
+
     date_obj = datetime.strptime(day[9:-2], "%dth %B")
     new_date_obj = date_obj - timedelta(days=0)
     formatted_date = new_date_obj.strftime("2024-%m-%d")
+    date_obj = datetime.strptime(formatted_date, "%Y-%m-%d")
+    need_day = formatted_date[-2:]
+    month_name = date_obj.strftime("%B")
+    day_of_week = date_obj.strftime("%A")
     seats = session.get('se_s')
-    all_detail = (name, email, phone, location, movie, theater, screen, time, formatted_date, seats)
+    seats_count = len(seats)
+    premium_count = 0
+    elite_count = 0
+    session['dateObj'] = formatted_date
+
+    # Iterate over each seat in the list
+    for seat in seats:
+    # Check if the seat starts with 'p' (premium)
+        if seat.startswith('p'):
+            premium_count += 1
+    # Check if the seat starts with 'e' (elite)
+        elif seat.startswith('e'):
+            elite_count += 1
+    session['p_count'] = premium_count
+    session['e_count'] = elite_count 
+    p_cost = premium_count * 190
+    p_cost_formatted = format(p_cost, '.1f')
+    e_cost = elite_count * 150
+    e_cost_formatted = format(e_cost, '.1f')
+    t_cost = p_cost+e_cost
+    t_cost_formatted = format(t_cost, '.1f')
+    tax = t_cost * 0.18
+    tax_formatted = format(tax, '.1f')
+    tick = tax + 25
+    tick_formatted = format(tick, '.1f')
+    o_total = tick + t_cost
+    o_total_formatted = format(o_total, '.1f')
+    session['price'] = o_total_formatted
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    insert_query = "SELECT movie_name from movies where movie_id = %s;"
+    cursor.execute(insert_query, (movie, ))
+    movie_name = cursor.fetchall()
+    insert_query = "SELECT theater_name from theaters where theater_id = %s;"
+    cursor.execute(insert_query, (theater, ))
+    theater_name = cursor.fetchall()
+    insert_query = "SELECT location from theaters where theater_id = %s;"
+    cursor.execute(insert_query, (theater, ))
+    theater_location = cursor.fetchall()
+    insert_query = "SELECT RATING FROM MOVIES WHERE MOVIE_ID = %s"
+    cursor.execute(insert_query, (movie, ))
+    rating = cursor.fetchall()
+    insert_query = "SELECT URL FROM MOVIES WHERE MOVIE_ID=%s"
+    cursor.execute(insert_query, (movie,))
+    img = cursor.fetchall()
+    conn.commit()
+    cursor.close()
+    conn.close()
+    all_detail = (name, email, phone, location, movie_name[0][0], theater_name[0][0], theater_location[0][0], rating[0][0], seats_count, screen, short_time, formatted_date, need_day, month_name, day_of_week, premium_count, elite_count, p_cost_formatted,e_cost_formatted,t_cost_formatted, tax_formatted, tick_formatted, o_total_formatted, img[0][0], seats, day)
     return render_template('TICKETS.html', all_details = all_detail)
+
+@app.route('/pay')
+def pay():
+    email = session.get('email')
+    phone = session.get('phone')
+    location = session.get('location')
+    movie = session.get('mv_s')
+    theater = session.get('th_s')
+    screen = session.get('sc_s')
+    date = session.get('dateObj')
+    time = session.get('ti_s')
+    seats = session.get('se_s')
+
+    p_count = session.get('p_count')
+    e_count = session.get('e_count')
+    price = session.get('price')
+
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    insert_query = "Select user_id from users where email = %s"
+    cursor.execute(insert_query, (email, ))
+    userId = cursor.fetchall()
+    user_id = userId[0][0]
+
+    insert_query = "INSERT INTO bookings (user_id, movie_id, theater_id, screen_id, day, show_time, no_of_elite_seats, no_of_premium_seats, price) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    cursor.execute(insert_query, (user_id, movie, theater, screen, date, time, e_count, p_count, price))
+
+    insert_query = "SELECT BOOKING_ID FROM BOOKINGS where user_id = %s and movie_id = %s and theater_id = %s and screen_id = %s and day = %s and show_time = %s and no_of_elite_seats = %s and no_of_premium_seats = %s and price = %s"
+    cursor.execute(insert_query, (user_id, movie, theater, screen, date, time, e_count, p_count, price))
+    booking_id = cursor.fetchall()
+    for seat in seats:
+        insert_query = "INSERT INTO SEATS_BOOKED (booking_id, seats) values(%s, %s)"
+        cursor.execute(insert_query, (booking_id[0][0], seat))
+    
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+
+    return render_template('GENERATION.html')
+
 
 @app.route('/create_movie')
 def create_movie():
@@ -627,7 +738,7 @@ def delete_movie(movie_id):
 def back_from():
     conn = connect_to_database()
     cursor = conn.cursor()
-    cursor.execute("SELECT MOVIES.MOVIE_ID, MOVIES.MOVIE_NAME, MOVIES.RDATE, rfm(MOVIES.MOVIE_ID) AS total_revenue FROM MOVIES;")
+    cursor.execute("SELECT MOVIES.MOVIE_ID, MOVIES.MOVIE_NAME, MOVIES.RDATE AS total_revenue FROM MOVIES;")
     movie_detail = cursor.fetchall()
     cursor.execute("SELECT THEATER_ID, THEATER_NAME, LOCATION FROM THEATERS;")
     theater_detail = cursor.fetchall()
@@ -702,6 +813,136 @@ def updated_movie():
         cursor.execute("SELECT MOVIE_ID, MOVIE_NAME, GENRE, RATING, DESCRIPTION, URL, RUN_TIME, RDATE FROM MOVIES WHERE MOVIE_ID = %s;", (movie_id,))
         movie_detail = cursor.fetchall()
         return render_template('EDIT_MOVIES_2.html', movie_details=movie_detail, error=error_message, operation='update')
+
+
+@app.route('/create_theater')
+def create_theater():
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    cursor.execute("SELECT THEATER_ID, THEATER_NAME, LOCATION FROM THEATERS;")
+    theater_detail = cursor.fetchall()
+    return render_template('EDIT_THEATERS_1.html', theater_details = theater_detail)
+
+@app.route('/insert_theater')
+def insert_theater():
+    theater_detail = (['','','','','','','',''])
+    return render_template('EDIT_THEATERS_2.html', theater_details = theater_detail, operation='insert')
+
+@app.route('/commit_theater', methods=['POST'])
+def commit_theater():
+    theater_id = request.form['theater_id']
+    theater_name = request.form['theater_name']
+    location = request.form['location']
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    insert_query = "INSERT INTO THEATERS (theater_id, theater_name, location) VALUES (%s, %s, %s)"
+    cursor.execute(insert_query, (theater_id, theater_name, location))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    cursor.execute("SELECT THEATER_ID, THEATER_NAME, LOCATION FROM THEATERS;")
+    theater_detail = cursor.fetchall()
+    return render_template('EDIT_THEATERS_1.html', theater_details = theater_detail)
+
+@app.route('/update_theater/<int:theater_id>')
+def update_theater(theater_id):
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    cursor.execute("SELECT THEATER_ID, THEATER_NAME, LOCATION FROM THEATERS WHERE THEATER_ID = %s;", (theater_id, ))
+    theater_detail = cursor.fetchall()
+    return render_template('EDIT_THEATERS_2.html', theater_details = theater_detail, operation='update')
+
+@app.route('/updated_theater', methods=['POST'])
+def updated_theater():
+    theater_id = request.form['theater_id']
+    theater_id = int(theater_id)
+    theater_name = request.form['theater_name']
+    location = request.form['location']
+
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    update_query = "UPDATE THEATERS SET theater_name = %s, location = %s WHERE theater_id = %s;"
+    cursor.execute(update_query, (theater_name, location, theater_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    cursor.execute("SELECT THEATER_ID, THEATER_NAME, LOCATION FROM THEATERS;")
+    theater_detail = cursor.fetchall()
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return render_template('EDIT_THEATERS_1.html',theater_details = theater_detail)
+
+@app.route('/delete_theater/<int:theater_id>')
+def delete_theater(theater_id):
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    delete_query = "DELETE FROM THEATERS WHERE THEATER_ID = %s;"
+    cursor.execute(delete_query, (theater_id,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    cursor.execute("SELECT THEATER_ID, THEATER_NAME, LOCATION FROM THEATERS ORDER BY(THEATER_ID);")
+    theater_detail = cursor.fetchall()
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return render_template('EDIT_THEATERS_1.html',theater_details = theater_detail)
+
+@app.route('/create_tm')
+def create_tm():
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    cursor.execute("""SELECT THEATERS.THEATER_ID, THEATERS.THEATER_NAME, MOVIES.MOVIE_ID, MOVIES.MOVIE_NAME, TM.SCREEN_ID, TM.SHOW_DATE, TM.SHOW_TIME FROM TM JOIN THEATERS ON TM.THEATER_ID = THEATERS.THEATER_ID JOIN MOVIES ON TM.MOVIE_ID = MOVIES.MOVIE_ID""")
+    tm_detail = cursor.fetchall()
+    #t_detail = cursor.fetchall()
+    return render_template('EDIT_TM_1.html', tm_details = tm_detail)
+
+@app.route('/insert_tm')
+def insert_tm():
+    tm_detail = (['','','','',''])
+    return render_template('EDIT_TM_2.html', tm_details = tm_detail, operation='insert')
+
+@app.route('/update_tm/<int:theater_id>/<int:movie_id>/<int:screen_id>/<string:show_date>/<string:show_time>')
+def update_tm(theater_id, movie_id, screen_id, show_date, show_time):
+    tm_detail = ([theater_id, movie_id, screen_id, show_date, show_time])
+    return render_template('EDIT_TM_2.html', tm_details = tm_detail, operation='update')
+
+@app.route('/commit_tm', methods=['POST'])
+def commit_tm():
+    theater_id = request.form['theater_id']
+    movie_id = request.form['movie_id']
+    screen_id = request.form['screen_id']
+    show_date = request.form['show_date']
+    show_time = request.form['show_time']
+    
+    try:
+        conn = connect_to_database()
+        cursor = conn.cursor()
+        insert_query = "INSERT INTO TM (theater_id, movie_id, screen_id, show_date, show_time) VALUES (%s, %s, %s, %s, %s)"
+        cursor.execute(insert_query, (theater_id, movie_id, screen_id, show_date, show_time))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        conn = connect_to_database()
+        cursor = conn.cursor()
+        cursor.execute("""SELECT THEATERS.THEATER_ID, THEATERS.THEATER_NAME, MOVIES.MOVIE_ID, MOVIES.MOVIE_NAME, TM.SCREEN_ID, TM.SHOW_DATE, TM.SHOW_TIME FROM TM JOIN THEATERS ON TM.THEATER_ID = THEATERS.THEATER_ID JOIN MOVIES ON TM.MOVIE_ID = MOVIES.MOVIE_ID""")
+        tm_detail = cursor.fetchall()
+        return render_template('EDIT_TM_1.html', tm_details = tm_detail)
+    except Exception as e:
+        tm_detail = (theater_id, movie_id, screen_id, show_date, show_time)
+        er = "TIME BETWEEN 2 SCREENED MOVIES SHOULD BE ATLEAST 1 HOUR."
+        return render_template('EDIT_TM_2.html', tm_details = tm_detail, error = er)
 
 if __name__ == '__main__':
     app.run(debug=True)

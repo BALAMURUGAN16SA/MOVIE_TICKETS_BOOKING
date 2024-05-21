@@ -439,7 +439,7 @@
             <div style="color:rgb(131, 128, 128); font-size: 15px;">Total</div>
             <div id="animalInside" style="font-size: 25px;"></div>
         </div>
-        <button class="a mb" id = 'proceedButton'>Continue</button>
+        <button class="a mb" id = 'proceedButton' >Continue</button>
         </div>
     </footer>
 
@@ -505,7 +505,7 @@
             .then(response => response.json())
             .then(data => {
                 console.log(data); // Handle the response from the server
-                window.location.href = '/tickets';
+                window.location.href = '/bookings';
             })
             .catch(error => {
                 console.error('Error:', error);
