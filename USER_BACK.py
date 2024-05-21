@@ -905,6 +905,8 @@ def create_tm():
     cursor = conn.cursor()
     cursor.execute("""SELECT THEATERS.THEATER_ID, THEATERS.THEATER_NAME, MOVIES.MOVIE_ID, MOVIES.MOVIE_NAME, TM.SCREEN_ID, TM.SHOW_DATE, TM.SHOW_TIME FROM TM JOIN THEATERS ON TM.THEATER_ID = THEATERS.THEATER_ID JOIN MOVIES ON TM.MOVIE_ID = MOVIES.MOVIE_ID""")
     tm_detail = cursor.fetchall()
+    cursor.close()
+    conn.close()
     #t_detail = cursor.fetchall()
     return render_template('EDIT_TM_1.html', tm_details = tm_detail)
 
@@ -934,15 +936,18 @@ def commit_tm():
         conn.commit()
         cursor.close()
         conn.close()
+
         conn = connect_to_database()
         cursor = conn.cursor()
         cursor.execute("""SELECT THEATERS.THEATER_ID, THEATERS.THEATER_NAME, MOVIES.MOVIE_ID, MOVIES.MOVIE_NAME, TM.SCREEN_ID, TM.SHOW_DATE, TM.SHOW_TIME FROM TM JOIN THEATERS ON TM.THEATER_ID = THEATERS.THEATER_ID JOIN MOVIES ON TM.MOVIE_ID = MOVIES.MOVIE_ID""")
         tm_detail = cursor.fetchall()
+        cursor.close()
+        conn.close()
         return render_template('EDIT_TM_1.html', tm_details = tm_detail)
     except Exception as e:
         tm_detail = (theater_id, movie_id, screen_id, show_date, show_time)
         er = "TIME BETWEEN 2 SCREENED MOVIES SHOULD BE ATLEAST 1 HOUR."
-        return render_template('EDIT_TM_2.html', tm_details = tm_detail, error = er)
+        return render_template('EDIT_TM_2.html', tm_details = tm_detail, error = e)
 
 if __name__ == '__main__':
     app.run(debug=True)
