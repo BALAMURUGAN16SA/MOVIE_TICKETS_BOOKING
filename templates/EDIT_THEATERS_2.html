@@ -76,7 +76,7 @@
         <form id = "theaterForm" action="/commit_theater" method="POST">
             <div class="row mb-3 custom-input">
                 <div class="col-12 col-md-6 mx-auto custom-output">
-                    <input type="text" class="form-control custom-input" placeholder="THEATER_ID" aria-label="Theater ID" name="theater_id" value = "{{ theater_details[0][0] }}" style="background-color: #eee;">
+                    <input type="text" class="form-control custom-input" placeholder="THEATER_ID" aria-label="Theater ID" id="theater_id" name="theater_id" value = "{{ theater_details[0][0] }}" style="background-color: #eee;">
                 </div>
             </div>
             <div class="row mb-3">
@@ -86,7 +86,14 @@
             </div>
             <div class="row mb-3">
                 <div class="col-12 col-md-6 mx-auto">
-                    <input type="text" class="form-control custom-input" placeholder="LOCATION" aria-label="Location" name="location" value = "{{ theater_details[0][2] }}" style="background-color: #eee;">
+                    <select type="text" class="form-control custom-input" placeholder="LOCATION" aria-label="Location" name="location" id="city" value = "{{ theater_details[0][2] }}" style="background-color: #eee;">
+                        <option value = "" disabled selected>City</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12 col-md-6 mx-auto">
+                    <input type="text" class="form-control custom-input" placeholder="SCREENS" aria-label="Screen" name="screen" id="screen" value = "{{ theater_details[0][3] }}" style="background-color: #eee;">
                 </div>
             </div>
             
@@ -130,9 +137,49 @@
             if (operation == 'update') {
                 document.getElementById('createButton').disabled = true;
                 document.getElementById('createButton').style.backgroundColor = "#808080";
+                document.getElementById('theater_id').style.backgroundColor = "#808080";
+                document.getElementById('screen').style.backgroundColor = "#808080";
             }
         };
-
+        var theaters = [
+            {"location": "ANNA NAGAR", "latitude": 13.0878, "longitude": 80.2174},
+            {"location": "T. NAGAR", "latitude": 13.0394, "longitude": 80.2337},
+            {"location": "ADYAR", "latitude": 13.0064, "longitude": 80.2575},
+            {"location": "MYLAPORE", "latitude": 13.0316, "longitude": 80.2670},
+            {"location": "NUNGAMBAKKAM", "latitude": 13.0620, "longitude": 80.2405},
+            {"location": "ALWARPET", "latitude": 13.0334, "longitude": 80.2546},
+            {"location": "EGMORE", "latitude": 13.0827, "longitude": 80.2707},
+            {"location": "KILPAUK", "latitude": 13.0827, "longitude": 80.2437},
+            {"location": "SAIDAPET", "latitude": 13.0203, "longitude": 80.2224},
+            {"location": "VELACHERY", "latitude": 12.9802, "longitude": 80.2228},
+            {"location": "GUINDY", "latitude": 13.0067, "longitude": 80.2206},
+            {"location": "THIRUVANMIYUR", "latitude": 12.9869, "longitude": 80.2615},
+            {"location": "PORUR", "latitude": 13.0324, "longitude": 80.1679},
+            {"location": "MOGAPPAIR", "latitude": 13.0832, "longitude": 80.1674},
+            {"location": "ANNA SALAI", "latitude": 13.0572, "longitude": 80.2668},
+            {"location": "MAMBALAM", "latitude": 13.0355, "longitude": 80.2274},
+            {"location": "KODAMBAKKAM", "latitude": 13.0512, "longitude": 80.2206},
+            {"location": "MOUNT ROAD", "latitude": 13.0626, "longitude": 80.2696},
+            {"location": "PALLIKARANAI", "latitude": 12.9329, "longitude": 80.2135},
+            {"location": "ASHOK NAGAR", "latitude": 13.0402, "longitude": 80.2123},
+            {"location": "CHROMPET", "latitude": 12.9517, "longitude": 80.1401},
+            {"location": "AMBATTUR", "latitude": 13.1075, "longitude": 80.1648},
+            {"location": "TAMBARAM", "latitude": 12.9246, "longitude": 80.1479},
+            {"location": "VADAPALANI", "latitude": 13.0501, "longitude": 80.2120},
+            {"location": "ROYAPETTAH", "latitude": 13.0581, "longitude": 80.2641},
+            {"location": "SHOLINGANALLUR", "latitude": 12.8990, "longitude": 80.2279},
+            {"location": "AVADI", "latitude": 13.1167, "longitude": 80.1010},  
+            {"location": "ENNORE", "latitude": 13.2161, "longitude": 80.3231},  
+            {"location": "PALLAVARAM", "latitude": 12.9686, "longitude": 80.1504},
+            {"location": "VANAGARAM", "latitude": 13.0733, "longitude": 80.2090},
+            ];
+            var dropdown = document.getElementById("city");
+            theaters.forEach(function(value) {
+                var option = document.createElement("option");
+                option.text = value.location;
+                option.setAttribute("name", "city");
+                dropdown.add(option);
+            });
    </script>
 </body>
 </html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        body, h1, h2, h3, p, ul, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Global styles */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f6f5f7;
+            height: 100vh;
+            margin: -20px 0 50px;
+        }
+
+        /* Header styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding:2vh 5vh;
+            margin-top:25px;
+            background-color: #128C7E;  
+            color: #f6f5f7;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .name{
+            position: absolute;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            background-color: darkslategray;
+            border-radius: 5px;
+            padding: 10px;
+            margin: -10px;
+            margin-left: -170px;
+        }
+        a { text-decoration : none;}
+
+        .navigation-links a {
+            color: #f6f5f7;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .navigation-links a:hover {
+            text-decoration: underline;
+        }
+
+        .profile-popup {
+            position: relative;
+        }
+
+        .profile-popup-content {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: #f6f5f7;
+            color : black;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+            z-index: 1;
+        }
+
+        .profile-popup-content.active {
+            display: block;
+        }
+
+        .profile-popup-content p {
+            margin-bottom: 5px;
+        }
+
+        .logout {
+            color: #d9534f; /* Red color */
+            cursor: pointer;
+        }
+
+        /* Profile icon styles */
+        .profile-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .profile-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .contact-details, .profile-popup-content {
+            position: absolute;
+            top: 40px;
+            right: 90px; /* Adjust as needed */
+            background-color: #f6f5f7;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+            z-index: 1;
+        }
+
+        .navigation-links a:hover + .contact-details {
+            display: block;
+        }
+
+        /* Contact details box */
+        .contact-details, .profile-popup-content{
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: #f6f5f7;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 20px;
+            display: none;
+            z-index: 1;
+            width: 300px;
+        }
+
+        .contact-details p ,.profile-popup-content p{
+            margin-bottom: 10px;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-details p:last-child , .profile-popup-content:last-child{
+            margin-bottom: 0;
+        }
+
+        .contact-details.active , .profile-popup-content:active{
+            display: block;
+        }
+
+       .session{
+        margin-top:150px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        border-radius: 5px;
+        background-color: rgb(255, 203, 203);
+        color: rgb(255, 0, 0);
+        width: fit-content;
+       }
+       .session .a{
+        font-size: 18px;
+        
+       }
+       .session .b{
+        font-size: 18px;
+        margin-left: 8px;
+        padding-top: 1px;
+        font-weight: 200px;
+       }
+
+       .content .leftBox{
+        border-radius: 20px;
+        border: 20px;
+        margin-right: 30px;
+        height: 8.5cm;
+        width: 20cm;
+        background: #fff;
+        border-radius: 24px;
+        padding: 25px 24px;
+        margin-top:-10vh;
+       }
+       .content .rightBox{
+        background: #fff;
+        border-radius: 20px;
+        border: 20px;
+        height: 14cm;
+        width: 9cm;
+        padding: 24px;
+       }
+       .leftBox .a{
+        margin-right: 22px;
+       }
+       .leftBox .a img{
+        height:275px;
+        width:200px;
+        border-radius: 20px;
+        margin-right: 25px;;
+       }
+       .leftBox .b{
+        padding: 3px;
+       }
+       .leftBox .b .first{
+            font-weight: 500;
+            font-size: 25px;
+       }
+       .content .leftBox .b .second .item{
+            border: 1px solid rgb(202, 202, 202);
+            border-radius: 5px;
+            width: fit-content;
+            padding-right: 7px;
+            padding-left: 7px;
+            margin-right: 10px;
+            height: fit-content;
+            font-size: 14px;
+            color: grey;
+            margin-top: 6px;
+       }
+       .leftBox .b .three{
+            margin-top: 13px;
+            font-weight: 600;
+            font-size: 18px;
+       }
+       .leftBox .b .four{
+        color: grey;
+        font-size:16px;
+        margin-bottom: 6px;
+        
+       }
+       .styled-hr{
+        width: 10px;
+        background-color: rgb(172, 172, 172);;
+        margin-right: 5px;
+       
+       }
+       .leftBox .b .six{
+        font-size:20px;
+        font-weight: 600;
+        margin-top:4px;
+        margin-bottom: 6px;
+       }
+       .leftBox .b .seven{
+        align-items: center;
+        border:none;
+        background-color: #f3f3f3;
+        width: fit-content;
+        height: fit-content;
+        padding: 10px;
+        border-radius: 10px;
+        
+        }
+       .leftBox .b .seven .number{
+        font-size:20px;
+        font-weight: 700;
+        
+        margin-right: 10px;
+       }
+       .leftBox .b .seven .tick{
+        font-size: 20px;
+        color: rgb(148, 148, 148);
+        font-weight: 500;
+        /* margin-top:4px; */
+       }
+       /* #elite   {
+        display: none;
+       } */
+       #line{
+        border: 2x solid grey;
+        width: 200px;
+       }
+       .rightBox .firstSection .det{
+        color: grey;
+        margin-right: 3px;
+       }
+       .rightBox .firstSection .No{
+        color: grey;
+       }
+       .mar{
+        margin-right: 3px;
+       }
+       .mleft{
+        margin-left: 2px;
+        color: grey;
+       }
+       .pay{
+        background-color: #00B9F1;
+        color: white;
+        
+       }
+       .last{
+        font-size:10px;
+        text-align: center;
+       }
+       .pay:hover{
+        background-color: #002E6E;
+        color:white;
+       }
+       .last span{
+        color: #00c3ff;
+       }
+       #premium{
+        display: None;
+       }
+       #elite{
+        display: None;
+       }
+       #Taxes{
+        display: none;
+       }
+       #Booking1{
+        display: none;
+       }
+       #Booking2{
+        display: none;
+       }
+       .ending{
+        position: fixed;
+        bottom: 0;
+        margin-bottom: 20px;
+        
+       }
+       .enter{
+        font-size: larger;
+        font-weight: 600;
+        align-items: center;
+        border:none;
+        background-color: #f3f3f3;
+        width: fit-content;
+        height: fit-content;
+        padding: 10px;
+        border-radius: 10px;
+       }
+       .overall{
+        justify-content: space-between;
+       }
+       /* .dot{
+        margin-left: 108px;
+      
+        margin-bottom: 20px;
+       } */
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <img src="/static/images/ICON.png" alt="OTTBS Icon">&ensp;
+            <h1>OTTBS</h1>
+        </div>
+        <div class="header-right">
+            <div class="navigation-links">
+                <div class = "name"><a><b>{{ details[0]}}</b></a></div>
+                <a href="/home">Home</a>
+                <a href="about.html">About</a>
+                <a href="javascript:void(0)" onclick="toggleContactDetails()">Contact</a>
+    
+            </div>
+            <div class="profile-popup">
+                <div class="profile-icon" onclick="toggleProfilePopup()">
+                    <img src="/static/images/PROFILE.png" alt="Profile Picture">
+                </div>
+            </div>
+            <div class="profile-popup-content" id="profilePopup" style="display: none;">
+                <p>{{ details[0] }}</p>
+                <p>{{ details[1] }}</p>
+                <p>{{ details[2] }}</p>
+                <p>{{ details[3] }}</p>
+                <p class="logout" onclick="logout()">Logout</p>
+            </div>
+        </div>
+    </header>
+    
+            <div class="contact-details">
+                <p><b>Admin 1:</b>Balamurugan S</p>
+                <p><b>Contact 1:</b>111-111-1111</p>
+                <p><b>Admin 2:</b>Shakith A</p>
+                <p><b>Contact 2:</b>999-999-9999</p>
+                <p><b>Email:</b>;www.ottbs@gmail.com</p>
+                <p><b>Address:</b>2#F1 OI, Bulls Park, Ambattur IE</p>
+            </div>
+    
+
+        
+
+        <div class="content d-flex  justify-content-center " style="margin-top:250px;">
+            <div>
+            <div class="leftBox d-flex ">
+                <div class="a">
+                    <img src="{{ imgs }}" width="300px" height="275px">
+                </div>
+                <div class="b d-flex flex-column ">
+                    <div class="first">{{ movie_names }}</div>
+                    <div class="second d-flex flex-row ">
+                        <div class="item">{{ ratings }}</div>
+                        <div class="item">Tamil</div>
+                        <div class="item">2D</div>
+                    </div>
+                    <div class="three">{{ theater_names }}, {{ theater_locations }}</div>
+                    <div class="four">{{ theater_locations }}, Chennai, TamilNadu 600010, India</div>     
+                    <div class="d-flex five"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"><hr class="styled-hr" id="hr-container"></div>
+                        <div class="overall d-flex ">
+                            <div class="seatDisplay">
+                                <div class="six">{{ days}} | {{ show_times }}</div>
+                                <div class="d-flex align-items-center ">
+                                    <div style="color: grey; margin-right: 8px;">Seats  </div>
+                                    <div id="enter" class="enter">
+                                        {% for seat in seats %}
+                                        {{ seat }}{% if not loop.last %}, {% endif %}
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dot">
+                                <img src="/static/images/qr.jpeg" width="90px" height="90px">
+
+                            </div>
+                        </div>
+                    
+                    </div> 
+                
+                          
+                </div>
+            </div>
+            
+        </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

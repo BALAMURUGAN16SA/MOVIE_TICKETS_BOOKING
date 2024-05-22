@@ -76,7 +76,7 @@
         <form id = "movieForm" action="/commit_movie" method="POST">
             <div class="row mb-3 custom-input">
                 <div class="col-12 col-md-6 mx-auto custom-output">
-                    <input type="text" class="form-control custom-input" placeholder="MOVIE_ID" aria-label="Movie ID" name="movie_id" value = "{{ movie_details[0][0] }}" style="background-color: #eee;">
+                    <input type="text" class="form-control custom-input" placeholder="MOVIE_ID" aria-label="Movie ID" name="movie_id" id="movie_id" value = "{{ movie_details[0][0] }}" style="background-color: #eee;">
                 </div>
             </div>
             <div class="row mb-3">
@@ -161,6 +161,7 @@
             if (operation == 'update') {
                 document.getElementById('createButton').disabled = true;
                 document.getElementById('createButton').style.backgroundColor = "#808080";
+                document.getElementById('movie_id').style.backgroundColor = "#808080";
             }
 
             if (runtimeValue == "CAN'T UPDATE AFTER MOVIE IS SCREENED") {
