@@ -1102,7 +1102,7 @@ def delete_theater(theater_id):
     try:
         conn = connect_to_database()
         cursor = conn.cursor()
-        cursor.callproc('delete_theater', [theater_id])
+        cursor.callproc('DELETE_THEATER', [theater_id])
         conn.commit()
         cursor.close()
         conn.close()
@@ -1124,7 +1124,7 @@ def delete_theater(theater_id):
         conn.commit()
         cursor.close()
         conn.close()
-        return render_template('EDIT_THEATERS_1.html',theater_details = theater_detail, error = "THEATER IS SCREENING SOME MOVIES.")
+        return render_template('EDIT_THEATERS_1.html',theater_details = theater_detail, error = "Theater is screened for some movies")
 
 
 

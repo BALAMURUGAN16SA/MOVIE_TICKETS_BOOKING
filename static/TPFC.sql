@@ -168,20 +168,27 @@ DELIMITER ;
 
 --PROCEDURE TO DELETE THEATER IF MOVIE IS NOT SCREENED
 DELIMITER //
-CREATE PROCEDURE DELETE_THEATER (IN theater_id_param INT)
+
+CREATE OR REPLACE PROCEDURE DELETE_THEATER (IN theater_id_param INT)
 BEGIN
-    DECLARE screens_exist INT;
+    DECLARE theaters_exist INT;
 
-    SELECT COUNT(*) INTO screens_exist FROM SCREENS WHERE THEATER_ID = theater_id_param;
+    -- Check if the theater exists in the TM table
+    SELECT COUNT(*) INTO theaters_exist FROM TM WHERE THEATER_ID = theater_id_param;
 
-    IF screens_exist > 0 THEN
+    -- If the theater does not exist in the TM table, delete its screens and then delete the theater
+    IF theaters_exist = 0 THEN
         BEGIN
             DELETE FROM SCREENS WHERE THEATER_ID = theater_id_param;
+            DELETE FROM THEATERS WHERE THEATER_ID = theater_id_param;
         END;
+    ELSE
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Cannot insert. Another movie is scheduled for the same theater, screen, date, and time.';
     END IF;
 
-    DELETE FROM THEATERS WHERE THEATER_ID = theater_id_param;
 END //
+
 DELIMITER ;
 
 
