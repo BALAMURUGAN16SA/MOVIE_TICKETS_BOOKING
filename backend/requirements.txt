@@ -1,0 +1,5 @@
+Flask>=2.3,<3.0
+psycopg2-binary>=2.9,<3.0  # Or replace with pg8000
+geopy>=2.3,<3.0
+python-dotenv>=1.0,<2.0
+flask-cors>=3.0,<4.0  # Updated to match available versions
