@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&display=swap');
+
+.admin-shows-container {
+  font-family: 'Space Grotesk', sans-serif;
+  min-height: 100vh;
+  background-color: #000c07;
+  color: #ffffff;
+}
+
+.admin-shows-overlay {
+  padding-top: 80px;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 12, 7, 0.85);
+}
+
+.admin-shows-content {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.admin-shows-card {
+  width: 100%;
+  max-width: 900px;
+  background-color: rgba(0, 12, 7, 0.2) !important;
+  border: 1px solid rgba(0, 200, 0, 0.8) !important;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 201, 0, 0.5);
+  backdrop-filter: blur(8px);
+}
+
+.admin-shows-card-body {
+  padding: 2rem;
+}
+
+.admin-shows-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.admin-shows-title {
+  color: #00c900;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-size: 1.75rem;
+}
+
+.admin-shows-subtitle {
+  color: #aaaaaa;
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+
+.admin-shows-alert {
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-shows-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.admin-shows-label {
+  color: #cccccc;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.admin-shows-input-group {
+  position: relative;
+}
+
+.admin-shows-input {
+  background-color: rgba(0, 136, 0, 0.1) !important;
+  border: 1px solid rgba(0, 201, 0, 0.3) !important;
+  color: #ffffff !important;
+  border-radius: 0.375rem;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.admin-shows-input::placeholder {
+  color: #cccccc !important;
+  opacity: 1 !important;
+}
+
+.admin-shows-input:focus {
+  background-color: rgba(0, 136, 0, 0.2) !important;
+  border-color: #00c900 !important;
+  box-shadow: 0 0 0 0.25rem rgba(0, 201, 0, 0.1) !important;
+}
+
+.admin-shows-input:-webkit-autofill,
+.admin-shows-input:-webkit-autofill:hover, 
+.admin-shows-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(0, 136, 0, 0.1) inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Make calendar and clock icons white on date/time inputs */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Inverts black to white */
+  cursor: pointer;
+}
+
+/* Optional: Change text color too */
+input[type="date"],
+input[type="time"] {
+  color: white;
+  background-color: transparent; /* if you want to match dark background */
+  border: 1px solid #ccc;
+}
+
+.admin-shows-btn {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 1rem;
+  background-color: #00c900 !important;
+  color: #000c07 !important;
+  font-weight: 600;
+  border: 1px solid #008800 !important;
+  border-radius: 0.375rem;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.admin-shows-btn:hover {
+  background-color: #00b200 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 201, 0, 0.3) !important;
+}
+
+.admin-shows-btn:disabled {
+  background-color: #008800 !important;
+  opacity: 0.7;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.shop{
+    background-color: #000c07 !important;
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .admin-shows-card-body {
+    padding: 1.5rem;
+  }
+  
+  .admin-shows-title {
+    font-size: 1.5rem;
+  }
+}

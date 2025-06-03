@@ -1,0 +1,109 @@
+/* Admin Accordion Styles */
+.admin-accordion-item {
+  background-color: rgba(0, 12, 7) !important;
+  border: 1px solid rgba(0, 200, 0, 0.8);
+  border-radius: 0.5rem !important;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 201, 0, 0.2) !important;
+  transition: all 0.3s ease;
+}
+
+.admin-accordion-item:hover {
+  box-shadow: 0 8px 20px rgba(0, 201, 0, 0.3) !important;
+}
+
+.accordion-header {
+  background-color: rgba(0, 100, 0, 0.3) !important;
+  padding: 1rem 1.5rem !important;
+  cursor: pointer;
+}
+
+.accordion-header h2 {
+  color: #00c900 !important;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  margin: 0;
+  transition: all 0.3s ease;
+}
+
+.accordion-button {
+  background-color: transparent !important;
+  color: #00c900 !important;
+  box-shadow: none !important;
+}
+
+.accordion-button:not(.collapsed) {
+  color: #00c900 !important;
+  background-color: rgba(0, 100, 0, 0.4) !important;
+}
+
+.accordion-button::after {
+  filter: brightness(0) saturate(100%) invert(64%) sepia(75%) saturate(464%) hue-rotate(53deg) brightness(101%) contrast(101%);
+}
+
+.accordion-body {
+  padding: 1rem !important;
+}
+
+/* Keep the existing table styles */
+.admin-table {
+  background-color: transparent !important;
+  color: white !important;
+  margin-bottom: 0 !important;
+}
+
+.admin-table th {
+  background-color: rgba(0, 100, 0, 0.2) !important;
+  color: #00c900 !important;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0, 200, 0, 0.3) !important;
+}
+
+.admin-table td {
+  border-bottom: 1px solid rgba(0, 200, 0, 0.1) !important;
+  background-color: rgb(197, 218, 190);
+  vertical-align: middle;
+}
+
+.admin-table tr:hover {
+  background-color: rgba(0, 100, 0, 0.15) !important;
+}
+
+.delete-btn {
+  border-color: #dc3545 !important;
+  color: #dc3545 !important;
+  transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #dc3545 !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3) !important;
+}
+
+.table-responsive {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .accordion-header {
+    padding: 0.75rem 1rem !important;
+  }
+  
+  .accordion-body {
+    padding: 1rem !important;
+  }
+  
+  .admin-table {
+    font-size: 0.9rem;
+  }
+  
+  .delete-btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}

@@ -1,0 +1,133 @@
+/* Modern Navbar Styles */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&display=swap');
+.modern-navbar {
+  background-color: rgba(0, 12, 7, 0.95) !important;
+  backdrop-filter: blur(10px);
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(0, 201, 0, 0.1);
+  transition: all 0.3s ease;
+  font-family: 'Space Grotesk';
+}
+
+/* Animated Nav Links */
+.nav-link-modern {
+  color: #e0e0e0 !important;
+  font-weight: 500;
+  font-size: 1.15rem !important;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0 !important;
+}
+
+.nav-link-text {
+  position: relative;
+  margin: 1.5rem;
+  z-index: 1;
+}
+
+.nav-link-underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #00c900;
+  transition: width 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-link-modern:hover .nav-link-underline,
+.nav-link-modern.active .nav-link-underline {
+  width: 100%;
+}
+
+.nav-link-modern:hover,
+.nav-link-modern.active {
+  color: #00c900 !important;
+}
+
+.nav-link-icon {
+  margin-left: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nav-link-modern:hover .nav-link-icon {
+  opacity: 1;
+}
+
+/* Contact Button */
+.contact-btn {
+  background:  #00c900 !important;
+  border: none !important;
+  color: #000c07 !important;
+  font-weight: 600;
+  transition: all 0.3s ease !important;
+}
+
+.contact-btn:hover {
+  transform: translateY(-2px);
+  background: #000c07 !important;
+  color: #e0e0e0 !important;
+  box-shadow: 0 4px 15px #00c900 !important;
+}
+
+
+/* Mobile Offcanvas */
+.modern-offcanvas {
+  background-color: #000c07 !important;
+  color: white;
+  width: 300px !important;
+}
+
+.mobile-nav-link {
+  color: #e0e0e0 !important;
+  margin: 0.1rem !important;
+  font-weight: 500;
+  font-size: 1.15rem !important;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(0, 201, 0, 0.1);
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+  color: #00c900 !important;
+  padding-left: 10px !important;
+}
+
+.modern-navbar {
+  position: relative;
+  z-index: 1050;
+}
+
+.modern-offcanvas {
+  background-color: #000c07;
+  color: white;
+}
+
+.nav-link-modern { 
+  color: rgba(255, 255, 255, 0.85) !important;
+  transition: all 0.3s ease;
+}
+
+.nav-link-modern:hover {
+  color: #00c900 !important;
+}
+
+.contact-btn {
+  background-color: #00c900 !important;
+  border-color: #008800 !important;
+  color: #000c07 !important;
+  font-weight: 600;
+}
+
+.contact-btn:hover {
+  background-color: #00b200 !important;
+  transform: translateY(-1px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .modern-navbar {
+    padding: 0.75rem 0;
+  }
+}

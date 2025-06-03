@@ -1,0 +1,112 @@
+/* Desktop Sidebar Styles */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&display=swap');
+.social-sidebar {
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+  font-family: 'Space Grotesk';
+}
+
+.follow-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  color: #00c900;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.arrow-line {
+  width: 1px;
+  height: 30px;
+  background-color: #00c900;
+  margin-left: 8px;
+}
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.social-icon {
+  color: #b3b3b3;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-icon:hover {
+  color: #00c900;
+  transform: translateY(-5px);
+  background-color: rgba(0, 201, 0, 0.1);
+  border-color: rgba(0, 201, 0, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 201, 0, 0.2);
+}
+
+.social-icons-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: rgba(0, 12, 7, 0.8);
+  padding: 15px 10px;
+  border-radius: 25px;
+  border: 1px solid rgba(0, 201, 0, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+/* Mobile Bottom Bar Styles */
+.social-sidebar-mobile {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 12, 7, 0.95);
+  border-top: 1px solid rgba(0, 201, 0, 0.3);
+  padding: 12px 0;
+  z-index: 1000;
+}
+
+.social-icons-horizontal {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .social-sidebar {
+    left: 10px;
+  }
+  
+  .social-icons-vertical {
+    padding: 12px 8px;
+    gap: 12px;
+  }
+  
+  .follow-text {
+    font-size: 0.8rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .social-sidebar-mobile {
+    display: none !important;
+  }
+}
