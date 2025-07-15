@@ -146,7 +146,7 @@ const Seats = () => {
                     className={`seat ${seat.is_booked ? 'booked' : ''} ${
                       selectedSeats.some(s => s.seatId === seat.seat_id) ? 'selected' : ''
                     }`}
-                    onClick={() => handleSeatSelection(seat.show_id, seat.seat_id, seat.seat_number, seat.seat_type, seat.is_booked)}
+                    onClick={() => handleSeatSelection(seat.show_id, seat.seat_id, seat.seat_number, seat.seat_type, seat.is_booked, Math.floor(Number(seat.price)) || 0)}
                   >
                     {seat.seat_number.replace(/^[EP]/, '')}
                   </div>
