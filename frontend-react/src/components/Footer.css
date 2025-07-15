@@ -1,0 +1,168 @@
+/* Modern Footer Styles */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&display=swap');
+.modern-footer {
+  background-color: rgba(0, 12, 7, 0.95) !important;
+  color: #ffffff;
+  padding: 4rem 0 2rem;
+  position: relative;
+  overflow: hidden;
+  font-size: 1rem;
+  font-family: 'Space Grotesk';
+}
+
+.modern-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00c900, transparent);
+}
+
+.info {
+  border-left: 2px solid #00c900;
+}
+
+/* Footer Items */
+.footer-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.footer-icon {
+  color: #00c900;
+  margin-right: 0.75rem;
+  min-width: 20px;
+}
+
+.footer-link, .footer-text {
+  color: #e0e0e0;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: #00c900;
+  text-decoration: none;
+}
+
+/* Copyright Text */
+.copyright-text {
+  color: #b3b3b3;
+  font-size: 0.9rem;
+  position: relative;
+  padding-top: 1.5rem;
+}
+
+.copyright-text::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00c900, transparent);
+}
+
+/* Extra Small Devices (phones, 576px and down) */
+@media (max-width: 575.98px) {
+  .modern-footer {
+    padding: 2.5rem 0 1.25rem;
+    font-size: 0.9rem;
+  }
+  
+  .footer-item {
+    justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+  
+  .footer-link, .footer-text {
+    font-size: 1rem !important;
+  }
+  
+  .info {
+    border-left: 2px solid #00c900;
+    padding-top: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+/* Small Devices (phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .modern-footer {
+    padding: 3rem 0 1.5rem;
+  }
+  
+  .footer-item {
+    justify-content: flex-start;
+  }
+  
+  .text-sm-end .footer-item {
+    justify-content: flex-end;
+  }
+  
+  .footer-link, .footer-text {
+    font-size: 1.1rem !important;
+  }
+}
+
+/* Medium Devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .modern-footer {
+    padding: 3.5rem 0 1.75rem;
+  }
+  
+  .footer-item {
+    justify-content: flex-start;
+  }
+  
+  .text-md-end .footer-item {
+    justify-content: flex-end;
+  }
+  
+  .footer-link, .footer-text {
+    font-size: 1.15rem !important;
+  }
+}
+
+/* Large Devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .footer-link, .footer-text {
+    font-size: 1.2rem !important;
+  }
+  
+  .modern-footer {
+    padding: 4rem 0 2rem;
+  }
+}
+
+/* Extra Large Devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .modern-footer {
+    padding: 4.5rem 0 2.25rem;
+  }
+  
+  .footer-link, .footer-text {
+    font-size: 1.25rem !important;
+  }
+}
+
+/* Common adjustments for mobile */
+@media (max-width: 767.98px) {
+  .social-icons {
+    justify-content: center !important;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .copyright-text {
+    text-align: center;
+  }
+  
+  .text-md-start, .text-md-end {
+    text-align: center !important;
+  }
+}
