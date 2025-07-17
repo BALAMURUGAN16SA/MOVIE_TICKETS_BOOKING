@@ -15,6 +15,12 @@
 ```
 ---
 
+### Flow Diagram
+
+![System Flowchart](screenshots/flowchart.png)
+
+---
+
 ### Project Description
 
 This project is aimed to demonstrate a fully efficient Movie Ticket Bookig through online, minding User experience, Concurrency handling, Admin handling all in one place.
