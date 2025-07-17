@@ -13,6 +13,7 @@
 | | |_admin_route.py
 | | |_user_route.py
 ```
+
 ---
 
 ### Flow Diagram
@@ -21,11 +22,18 @@
 
 ---
 
+### Demo Video
+
+https://drive.google.com/drive/folders/16VhZIcVPA2lbiQQFT-74fzWj9d_jyYY9
+
+---
+
 ### Project Description
 
 This project is aimed to demonstrate a fully efficient Movie Ticket Bookig through online, minding User experience, Concurrency handling, Admin handling all in one place.
 
 **At user side:**
+
 - User can navigate through recent movies, all movies and book a ticket. User can select Movies based on recency and older.
 - User can select a theater, which is displayed based on beng near to farther away from their cuurent location and book a ticket. User can choose theaters based on parking being available, accessible to disable people.
 - User can select a show time from a screen of their convience from the selected theater for their selected movie.
@@ -37,6 +45,7 @@ This project is aimed to demonstrate a fully efficient Movie Ticket Bookig throu
 - User side also provides, Contact side, Social media links to get in touch with the Admin.
 
 **At admin side:**
+
 - Admin can view all available Movies, Theaters, Screens, Shows
 - Admin can add/ delete new Movies, Theaters and Screens and Shows.
 - Admin side is very protected to prevent commiting DB actions that questions DB integrity, for instance adding a new Movie that might overlap, deleting a Movie that users booked, etc.,.
@@ -44,6 +53,7 @@ This project is aimed to demonstrate a fully efficient Movie Ticket Bookig throu
 ---
 
 **Triggers:**
+
 - Preventing overlap of shows with Hibernating period of 1 hours after or before the other show.
   For instace if a movie is already scheduled at 18:00:00, and it runs for 2hrs, a new movie cant be added till movie ends along with mandatory screen hibernation period of 1hr. Thus the movie ends at 20:00:00, but a new movie can be only added after 21:00:00
   Similarly if we try to add a movie before it, it considers that movie runtime and hibernation period and prevents it from overlapping with existing movie. Let the before be addded movie be of length 2hrs, with 1hr hibernation, the movie cant be added after 3hrs. Thus it cant be added after 15:00:00.
@@ -55,6 +65,7 @@ This project is aimed to demonstrate a fully efficient Movie Ticket Bookig throu
 ---
 
 **Authention and Authorization:**
+
 - Lets user access Profile, History only after Login.
 - Lets user Book, Cancel only after Login.
 - Other features like search are not limited to user authentication.
@@ -65,6 +76,7 @@ This project is aimed to demonstrate a fully efficient Movie Ticket Bookig throu
 ---
 
 **Microservices:**
+
 - JWT Authentication.
 - React Authorization Guarding.
 - Location based Theater search.
