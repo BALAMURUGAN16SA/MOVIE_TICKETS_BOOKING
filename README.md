@@ -35,7 +35,7 @@ This project is aimed to demonstrate a fully efficient Movie Ticket Bookig throu
 
 **Triggers:**
 - Preventing overlap of shows with Hibernating period of 1 hours after or before the other show.
-  For instace if a movie is already scheduled at 18:00:00, and it runs for 2hrs, a new movie cant be added till movie ends along with mandatory screen hibernation period of 1hr. Thus the movie ends at 20:00:00, but a new movie can be only added after 21:00💯
+  For instace if a movie is already scheduled at 18:00:00, and it runs for 2hrs, a new movie cant be added till movie ends along with mandatory screen hibernation period of 1hr. Thus the movie ends at 20:00:00, but a new movie can be only added after 21:00:00
   Similarly if we try to add a movie before it, it considers that movie runtime and hibernation period and prevents it from overlapping with existing movie. Let the before be addded movie be of length 2hrs, with 1hr hibernation, the movie cant be added after 3hrs. Thus it cant be added after 15:00:00.
 - Prevention of Deletion of Movies, Theaters, Screens or Shows if it has been screened with a Movie that atleast 1 user has booked. If not booked or no shows is present it can be deleted.
 - Prevention of runtime update, once movie is screened.
@@ -47,13 +47,13 @@ This project is aimed to demonstrate a fully efficient Movie Ticket Bookig throu
 - Lets user Book, Cancel only after Login.
 - Other features like search are not limited to user authentication.
 - Authentication done by JWT token, with access token living upto 10mins and refresh token living upto 10 days.
-- React Authorization prevents user from accessing Admin side page.
+- React Authorization prevents user from accessing Admin side page (React-based route guarding ).
 - URL navigation, SQL injection are prevented by JWT, Prepared statements.
 
 **Microservices:**
 - JWT Authentication.
-- React Authorization.
+- React Authorization Guarding.
 - Location based Theater search.
-- Booking of Tickets.
-- Cancelling of Tickets.
-- CRUD on DB.
+- Booking Service.
+- Cancellation Service.
+- DB CRUD Services.
