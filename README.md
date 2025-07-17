@@ -1,5 +1,7 @@
 ### ONLINE MOVIE TICKET BOOKING SYSTEM
 
+---
+
 ### Project Structure
 
 ```
@@ -11,7 +13,7 @@
 | | |_admin_route.py
 | | |_user_route.py
 ```
-
+---
 
 ### Project Description
 
@@ -33,6 +35,8 @@ This project is aimed to demonstrate a fully efficient Movie Ticket Bookig throu
 - Admin can add/ delete new Movies, Theaters and Screens and Shows.
 - Admin side is very protected to prevent commiting DB actions that questions DB integrity, for instance adding a new Movie that might overlap, deleting a Movie that users booked, etc.,.
 
+---
+
 **Triggers:**
 - Preventing overlap of shows with Hibernating period of 1 hours after or before the other show.
   For instace if a movie is already scheduled at 18:00:00, and it runs for 2hrs, a new movie cant be added till movie ends along with mandatory screen hibernation period of 1hr. Thus the movie ends at 20:00:00, but a new movie can be only added after 21:00:00
@@ -42,6 +46,8 @@ This project is aimed to demonstrate a fully efficient Movie Ticket Bookig throu
 - Creating/ Deleting seat instances as soon as a Screen has been added/ deleted, which triggers bookings table to remove the total revenue generated, all_bookings table to updatte status of user.
 - Resetting seat instances as soon as date of that show gets changes, which triggers bookings, all bookings as well.
 
+---
+
 **Authention and Authorization:**
 - Lets user access Profile, History only after Login.
 - Lets user Book, Cancel only after Login.
@@ -50,6 +56,8 @@ This project is aimed to demonstrate a fully efficient Movie Ticket Bookig throu
 - React Authorization prevents user from accessing Admin side page (React-based route guarding ).
 - URL navigation, SQL injection are prevented by JWT, Prepared statements.
 
+---
+
 **Microservices:**
 - JWT Authentication.
 - React Authorization Guarding.
@@ -57,3 +65,5 @@ This project is aimed to demonstrate a fully efficient Movie Ticket Bookig throu
 - Booking Service.
 - Cancellation Service.
 - DB CRUD Services.
+
+---
