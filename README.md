@@ -88,32 +88,66 @@ This project is aimed to demonstrate a fully efficient Movie Ticket Bookig throu
 
 ### Screenshots
 
-![User Home Page](screenshots/pic1.png)
+- User Home Page
 
-![User Profile](screenshots/pic2.png)
+  ![User Home Page](screenshots/pic1.png)
 
-![History / Cancel](screenshots/pic3.png)
+- User Profile
 
-![Login Required](screenshots/pic10.png)
+  ![User Profile](screenshots/pic2.png)
 
-![Movies](screenshots/pic4.png)
+- User History
 
-![Theaters](screenshots/pic5.png)
+  ![History / Cancel](screenshots/pic3.png)
 
-![Shows](screenshots/pic6.png)
+- Carousels
 
-![Seats](screenshots/pic7.png)
+  ![Carousels](screenshots/pic16.png)
 
-![Payment](screenshots/pic8.png)
+- Movies
 
-![Ticket](screenshots/pic9.png)
+  ![Movies](screenshots/pic4.png)
 
-![Admin Home Page](screenshots/pic11.png)
+- Theaters
 
-![Add Movies](screenshots/pic12.png)
+  ![Theaters](screenshots/pic5.png)
 
-![Add Theaters](screenshots/pic13.png)
+- Shows
 
-![Add Shows](screenshots/pic14.png)
+  ![Shows](screenshots/pic6.png)
 
-![CRUD on Movies](screenshots/pic15.png)
+- Seats
+
+  ![Seats](screenshots/pic7.png)
+
+- Payment
+
+  ![Payment](screenshots/pic8.png)
+
+- Ticket Generation
+
+  ![Ticket](screenshots/pic9.png)
+
+- Login Required
+
+  ![Login Required](screenshots/pic10.png)
+
+- Admin Home Page
+
+  ![Admin Home Page](screenshots/pic11.png)
+
+- Adding Movies
+
+  ![Add Movies](screenshots/pic12.png)
+
+- Adding Theaters
+
+  ![Add Theaters](screenshots/pic13.png)
+
+- Adding Shows
+
+  ![Add Shows](screenshots/pic14.png)
+
+- Example CRUD on Existing Movies
+
+  ![CRUD on Movies](screenshots/pic15.png)
