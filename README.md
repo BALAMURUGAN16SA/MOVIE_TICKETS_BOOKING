@@ -45,6 +45,8 @@ https://drive.google.com/drive/folders/16VhZIcVPA2lbiQQFT-74fzWj9d_jyYY9
 - python app.py
 - Create .env files of your own, with required credentials
 
+---
+
 ### Project Description
 
 This project is aimed to demonstrate a fully efficient Movie Ticket Bookig through online, minding User experience, Concurrency handling, Admin handling all in one place.
