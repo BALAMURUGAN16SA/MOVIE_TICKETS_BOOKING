@@ -16,15 +16,15 @@
 
 ---
 
-### Flow Diagram
-
-![System Flowchart](screenshots/flowchart.png)
-
----
-
 ### Demo Video
 
 https://drive.google.com/drive/folders/16VhZIcVPA2lbiQQFT-74fzWj9d_jyYY9
+
+---
+
+### Flow Diagram
+
+![System Flowchart](screenshots/flowchart.png)
 
 ---
 
@@ -85,3 +85,35 @@ This project is aimed to demonstrate a fully efficient Movie Ticket Bookig throu
 - DB CRUD Services.
 
 ---
+
+### Screenshots
+
+![User Home Page](screenshots/pic1.png)
+
+![User Profile](screenshots/pic2.png)
+
+![History / Cancel](screenshots/pic3.png)
+
+![Login Required](screenshots/pic10.png)
+
+![Movies](screenshots/pic4.png)
+
+![Theaters](screenshots/pic5.png)
+
+![Shows](screenshots/pic6.png)
+
+![Seats](screenshots/pic7.png)
+
+![Payment](screenshots/pic8.png)
+
+![Ticket](screenshots/pic9.png)
+
+![Admin Home Page](screenshots/pic11.png)
+
+![Add Movies](screenshots/pic12.png)
+
+![Add Theaters](screenshots/pic13.png)
+
+![Add Shows](screenshots/pic14.png)
+
+![CRUD on Movies](screenshots/pic15.png)
