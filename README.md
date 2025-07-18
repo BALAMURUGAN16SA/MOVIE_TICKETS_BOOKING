@@ -1,7 +1,12 @@
+### About Branch
+
+This branch consists of basic Website, focussing primarly on SQL as it is done as a project for DBMS.
+
+---
 ### Online Movie Ticket Booking System
 
-A seamless system to book tickets online for your favorite movies at favorite theaters.
-Done using basic Html, Css, Flask.
+- A seamless system to book tickets online for your favorite movies at favorite theaters.
+- Done using basic Html, Css, Flask.
 
 ---
 
