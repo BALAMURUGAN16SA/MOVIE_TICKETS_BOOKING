@@ -28,11 +28,22 @@ https://drive.google.com/drive/folders/16VhZIcVPA2lbiQQFT-74fzWj9d_jyYY9
 
 ---
 
-### schema Diagram
+### Schema Diagram
 
 ![Schema](screenshots/schema.png)
 
 ---
+
+### Using Repository
+
+- Pull the repository
+- cd frontend-react from root
+- npm install
+- npm start
+- cd backend from root
+- pip install -r "requirements.txt"
+- python app.py
+- Create .env files of your own, with required credentials
 
 ### Project Description
 
