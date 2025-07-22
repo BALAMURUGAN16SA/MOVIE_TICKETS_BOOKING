@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.register_blueprint(user_bp, url_prefix = '/user')
 app.register_blueprint(admin_bp, url_prefix = '/admin')
 
-CORS(app)
+CORS("http://localhost:3000/)
 JWT_SECRET_KEY = config.jwt_secret_key
 JWT_REFRESH_KEY = config.jwt_refresh_key
 
