@@ -104,7 +104,7 @@ const AT = () => {
     try {
       const fetchData = async (tokenToUse = accessToken, retryCount = 0) => {
         try {
-          const res = await fetch('http://localhost:5000/admin/add-theaters', {
+          const res = await fetch('https://movie-tickets-booking-8bn9.onrender.com/admin/add-theaters', {
             method: 'POST',
             headers: { 
               Authorization: `Bearer ${tokenToUse}`, 
@@ -117,7 +117,7 @@ const AT = () => {
 
           if (!res.ok) {
             if (data.error === "Access token expired" && retryCount < 1) {
-              const refreshRes = await fetch("http://localhost:5000/user/refresh", {
+              const refreshRes = await fetch("https://movie-tickets-booking-8bn9.onrender.com/user/refresh", {
                 headers: {
                   Authorization: `Bearer ${refreshToken}`,
                 },

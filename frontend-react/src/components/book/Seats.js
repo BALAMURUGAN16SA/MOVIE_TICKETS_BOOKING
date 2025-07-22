@@ -52,7 +52,7 @@ const Seats = () => {
     const fetchSeats = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/user/screens?movie_id=${movieId}&theater_id=${theaterId}&screen_id=${screenId}&show_date=${showDate}&show_time=${showTime}`
+          `https://movie-tickets-booking-8bn9.onrender.com/user/screens?movie_id=${movieId}&theater_id=${theaterId}&screen_id=${screenId}&show_date=${showDate}&show_time=${showTime}`
         );
 
         if (!res.ok) {
@@ -170,7 +170,7 @@ const Seats = () => {
       try {
         const fetchData = async (tokenToUse = accessToken, retryCount = 0) => {
           try {
-            const res = await fetch('http://localhost:5000/user/book', {
+            const res = await fetch('https://movie-tickets-booking-8bn9.onrender.com/user/book', {
               method: 'POST',
               headers: { 
                 Authorization: `Bearer ${tokenToUse}`, 
@@ -191,7 +191,7 @@ const Seats = () => {
 
             if (!res.ok) {
               if (data.error === "Access token expired" && retryCount < 1) {
-                const refreshRes = await fetch("http://localhost:5000/user/refresh", {
+                const refreshRes = await fetch("https://movie-tickets-booking-8bn9.onrender.com/user/refresh", {
                   headers: {
                     Authorization: `Bearer ${refreshToken}`,
                   },

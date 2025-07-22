@@ -30,7 +30,7 @@ const Login = ({ onLogin, onClose, onRegisterClick }) => {
         password: hashedPassword,
       };
 
-      const res = await fetch('http://localhost:5000/login', {
+      const res = await fetch('https://movie-tickets-booking-8bn9.onrender.com/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

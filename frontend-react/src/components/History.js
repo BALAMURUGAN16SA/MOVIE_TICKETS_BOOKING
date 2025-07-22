@@ -48,7 +48,7 @@ function History({ setShowHistory }) {
 
     const fetchBookings = async (tokenToUse = accessToken) => {
       try {
-        const res = await fetch("http://localhost:5000/user/history", {
+        const res = await fetch("https://movie-tickets-booking-8bn9.onrender.com/user/history", {
           headers: {
             Authorization: `Bearer ${tokenToUse}`,
           },
@@ -58,7 +58,7 @@ function History({ setShowHistory }) {
         
         if (!res.ok) {
           if (data.error === "Access token expired") {
-            const refreshRes = await fetch("http://localhost:5000/user/refresh", {
+            const refreshRes = await fetch("https://movie-tickets-booking-8bn9.onrender.com/user/refresh", {
               headers: {
                 Authorization: `Bearer ${refreshToken}`,
               },
@@ -137,7 +137,7 @@ function History({ setShowHistory }) {
     setConfirmCancelId(null);
     const handleCancel = async (tokenToUse = accessToken) => {
       try {
-        const res = await fetch(`http://localhost:5000/user/cancel_bookings?booking_id=${bookingId}`, {
+        const res = await fetch(`https://movie-tickets-booking-8bn9.onrender.com/user/cancel_bookings?booking_id=${bookingId}`, {
           headers: {
             Authorization: `Bearer ${tokenToUse}`,
           },
@@ -147,7 +147,7 @@ function History({ setShowHistory }) {
         
         if (!res.ok) {
           if (data.error === "Access token expired") {
-            const refreshRes = await fetch("http://localhost:5000/user/refresh", {
+            const refreshRes = await fetch("https://movie-tickets-booking-8bn9.onrender.com/user/refresh", {
               headers: {
                 Authorization: `Bearer ${refreshToken}`,
               },

@@ -117,7 +117,7 @@ const Register = ({ onRegister, onClose, onLoginClick }) => {
                 confirmPassword: undefined
             };
 
-            const res = await fetch('http://localhost:5000/user/register', {
+            const res = await fetch('https://movie-tickets-booking-8bn9.onrender.com/user/register', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',

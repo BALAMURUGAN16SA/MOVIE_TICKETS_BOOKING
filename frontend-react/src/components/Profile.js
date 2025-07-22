@@ -45,7 +45,7 @@ function Profile({ setShowProfile }) {
 
     const fetchProfile = async (tokenToUse = accessToken) => {
       try {
-        const res = await fetch("http://localhost:5000/user/profile", {
+        const res = await fetch("https://movie-tickets-booking-8bn9.onrender.com/user/profile", {
           headers: {
             Authorization: `Bearer ${tokenToUse}`,
           },
@@ -54,7 +54,7 @@ function Profile({ setShowProfile }) {
         const data = await res.json();
         if (!res.ok) {
           if (data.error === "Access token expired") {
-            const refreshRes = await fetch("http://localhost:5000/user/refresh", {
+            const refreshRes = await fetch("https://movie-tickets-booking-8bn9.onrender.com/user/refresh", {
               headers: {
                 Authorization: `Bearer ${refreshToken}`,
               },

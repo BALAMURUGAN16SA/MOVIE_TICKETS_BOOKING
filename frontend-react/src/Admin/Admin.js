@@ -96,7 +96,7 @@ const MoviesAccordionItem = () => {
     
     if (!response.ok) {
       if (data.error === "Access token expired" && retryCount < 1) {
-        const refreshResponse = await fetch("http://localhost:5000/user/refresh", {
+        const refreshResponse = await fetch("https://movie-tickets-booking-8bn9.onrender.com/user/refresh", {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${refreshToken}`
@@ -135,7 +135,7 @@ const MoviesAccordionItem = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await fetch('http://localhost:5000/admin/movies');
+        const response = await fetch('https://movie-tickets-booking-8bn9.onrender.com/admin/movies');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -154,7 +154,7 @@ const MoviesAccordionItem = () => {
 
   const handleDelete = async (id) => {
     try {
-      await fetchWithAuth(`http://localhost:5000/admin/delete_movies?mid=${id}`, {
+      await fetchWithAuth(`https://movie-tickets-booking-8bn9.onrender.com/admin/delete_movies?mid=${id}`, {
         method: 'DELETE'
       });
       setMovies(movies.filter(movie => movie.id !== id));
@@ -239,7 +239,7 @@ const TheatersAccordionItem = () => {
 
       if (!response.ok) {
         if (data.error === "Access token expired" && retryCount < 1) {
-          const refreshResponse = await fetch("http://localhost:5000/user/refresh", {
+          const refreshResponse = await fetch("https://movie-tickets-booking-8bn9.onrender.com/user/refresh", {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${refreshToken}`
@@ -277,7 +277,7 @@ const TheatersAccordionItem = () => {
   useEffect(() => {
     const fetchTheaters = async () => {
       try {
-        const response = await fetch('http://localhost:5000/admin/theaters');
+        const response = await fetch('https://movie-tickets-booking-8bn9.onrender.com/admin/theaters');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -296,7 +296,7 @@ const TheatersAccordionItem = () => {
 
   const handleDelete = async (id) => {
     try {
-      await fetchWithAuth(`http://localhost:5000/admin/delete_theaters?tid=${id}`, {
+      await fetchWithAuth(`https://movie-tickets-booking-8bn9.onrender.com/admin/delete_theaters?tid=${id}`, {
         method: 'DELETE'
       });
       setTheaters(theaters.filter(theater => theater.id !== id));
@@ -383,7 +383,7 @@ const ScreensAccordionItem = () => {
 
       if (!response.ok) {
         if (data.error === "Access token expired" && retryCount < 1) {
-          const refreshResponse = await fetch("http://localhost:5000/user/refresh", {
+          const refreshResponse = await fetch("https://movie-tickets-booking-8bn9.onrender.com/user/refresh", {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${refreshToken}`
@@ -421,7 +421,7 @@ const ScreensAccordionItem = () => {
   useEffect(() => {
     const fetchScreens = async () => {
       try {
-        const response = await fetch('http://localhost:5000/admin/screens');
+        const response = await fetch('https://movie-tickets-booking-8bn9.onrender.com/admin/screens');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -440,7 +440,7 @@ const ScreensAccordionItem = () => {
 
   const handleDelete = async (theaterId, screenId) => {
     try {
-      await fetchWithAuth(`http://localhost:5000/admin/delete_screens?tid=${theaterId}&sid=${screenId}`, {
+      await fetchWithAuth(`https://movie-tickets-booking-8bn9.onrender.com/admin/delete_screens?tid=${theaterId}&sid=${screenId}`, {
         method: 'DELETE'
       });
       setScreens(screens.filter(screen => 
@@ -531,7 +531,7 @@ const ShowsAccordionItem = () => {
 
       if (!response.ok) {
         if (data.error === "Access token expired" && retryCount < 1) {
-          const refreshResponse = await fetch("http://localhost:5000/user/refresh", {
+          const refreshResponse = await fetch("https://movie-tickets-booking-8bn9.onrender.com/user/refresh", {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${refreshToken}`
@@ -569,7 +569,7 @@ const ShowsAccordionItem = () => {
   useEffect(() => {
     const fetchShows = async () => {
       try {
-        const response = await fetch('http://localhost:5000/admin/shows');
+        const response = await fetch('https://movie-tickets-booking-8bn9.onrender.com/admin/shows');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -588,7 +588,7 @@ const ShowsAccordionItem = () => {
 
   const handleDelete = async (showId) => {
     try {
-      await fetchWithAuth(`http://localhost:5000/admin/delete_shows?sid=${showId}`, {
+      await fetchWithAuth(`https://movie-tickets-booking-8bn9.onrender.com/admin/delete_shows?sid=${showId}`, {
         method: 'DELETE'
       });
       setShows(shows.filter(show => show.show_id !== showId));

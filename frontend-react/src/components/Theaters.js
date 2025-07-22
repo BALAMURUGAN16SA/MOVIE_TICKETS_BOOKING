@@ -23,7 +23,7 @@ const Theaters = () => {
         setIsLoading(true);
         setError(null);
         
-        const response = await fetch("http://localhost:5000/theaters");
+        const response = await fetch("https://movie-tickets-booking-8bn9.onrender.com/theaters");
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
 

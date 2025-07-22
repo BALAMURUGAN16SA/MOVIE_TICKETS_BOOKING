@@ -22,7 +22,7 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
         setIsLoading(true);
         setError(null);
         
-        const response = await fetch(`http://localhost:5000/user/theaters_showing_selected_movie?movie_id=${movieId}`);
+        const response = await fetch(`https://movie-tickets-booking-8bn9.onrender.com/user/theaters_showing_selected_movie?movie_id=${movieId}`);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         

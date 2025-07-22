@@ -52,11 +52,11 @@ const AddShows = () => {
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
-        const theatersRes = await fetch('http://localhost:5000/admin/theaters');
+        const theatersRes = await fetch('https://movie-tickets-booking-8bn9.onrender.com/admin/theaters');
         const theatersData = await theatersRes.json();
         setTheaters(theatersData);
 
-        const moviesRes = await fetch('http://localhost:5000/admin/movies');
+        const moviesRes = await fetch('https://movie-tickets-booking-8bn9.onrender.com/admin/movies');
         const moviesData = await moviesRes.json();
         setMovies(moviesData);
 
@@ -79,7 +79,7 @@ const AddShows = () => {
       }
 
       try {
-        const screensRes = await fetch(`http://localhost:5000/admin/screensoftheater?theater_id=${formData.theater_id}`);
+        const screensRes = await fetch(`https://movie-tickets-booking-8bn9.onrender.com/admin/screensoftheater?theater_id=${formData.theater_id}`);
         const screensData = await screensRes.json();
         setScreens(screensData);
         console.log(screensData)
@@ -133,7 +133,7 @@ const AddShows = () => {
     try {
       const fetchData = async (tokenToUse = accessToken, retryCount = 0) => {
         try {
-          const res = await fetch('http://localhost:5000/admin/add-shows', {
+          const res = await fetch('https://movie-tickets-booking-8bn9.onrender.com/admin/add-shows', {
             method: 'POST',
             headers: { 
               Authorization: `Bearer ${tokenToUse}`, 
@@ -146,7 +146,7 @@ const AddShows = () => {
 
           if (!res.ok) {
             if (data.error === "Access token expired" && retryCount < 1) {
-              const refreshRes = await fetch("http://localhost:5000/user/refresh", {
+              const refreshRes = await fetch("https://movie-tickets-booking-8bn9.onrender.com/user/refresh", {
                 headers: {
                   Authorization: `Bearer ${refreshToken}`,
                 },

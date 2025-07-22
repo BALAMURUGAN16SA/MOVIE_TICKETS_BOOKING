@@ -13,7 +13,7 @@ const Movies = ({ theaterId, setMovieId, setScreenId, setShowDate, setShowTime, 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/user/movies_shown_by_selected_theater?theater_id=${theaterId}`);
+        const res = await fetch(`https://movie-tickets-booking-8bn9.onrender.com/user/movies_shown_by_selected_theater?theater_id=${theaterId}`);
         
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
