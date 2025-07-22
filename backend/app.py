@@ -12,8 +12,8 @@ app = Flask(__name__)
 app.register_blueprint(user_bp, url_prefix = '/user')
 app.register_blueprint(admin_bp, url_prefix = '/admin')
 
-CORS(user_bp, origins=["http://localhost:3000"])
-CORS(admin_bp, origins=["http://localhost:3000"])
+CORS(app, origins=["http://localhost:3000"], supports_credentials=True)
+
 JWT_SECRET_KEY = config.jwt_secret_key
 JWT_REFRESH_KEY = config.jwt_refresh_key
 
