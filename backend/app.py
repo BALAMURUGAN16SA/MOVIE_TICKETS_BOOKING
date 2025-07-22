@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.register_blueprint(user_bp, url_prefix = '/user')
 app.register_blueprint(admin_bp, url_prefix = '/admin')
 
-CORS("http://localhost:3000/)
+CORS(app, origins=["http://localhost:3000", "https://movie-tickets-booking-8bn9.onrender.com"])
 JWT_SECRET_KEY = config.jwt_secret_key
 JWT_REFRESH_KEY = config.jwt_refresh_key
 
