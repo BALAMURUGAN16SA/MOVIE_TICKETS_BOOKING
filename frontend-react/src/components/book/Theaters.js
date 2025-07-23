@@ -328,21 +328,18 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
         case 'disabled':
           return {
             variant: 'warning',
-            icon: <i className="bi bi-info-circle me-2" />,
             title: 'Location Access Disabled',
             message: 'Enable location services to see theaters sorted by distance from your location.'
           };
         case 'unavailable':
           return {
             variant: 'info',
-            icon: <FaLocationArrow className="me-2" />,
             title: 'Location Unavailable',
             message: 'Unable to determine your location. Theaters are shown in default order.'
           };
         case 'enabled':
           return hasLocation ? null : {
             variant: 'info',
-            icon: <FaLocationArrow className="me-2" />,
             title: 'Location Processing',
             message: 'Getting your location to sort theaters by distance...'
           };
