@@ -221,7 +221,7 @@ const Theaters = () => {
     return (
       <Container fluid className="theaters-section d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '80vh' }}>
         <Spinner animation="border" variant="success" />
-        <p className="text-center mt-3">Loading theaters...</p>
+        <p className="text-center mt-3">Loading theaters based on your current location...</p>
       </Container>
     );
   }
