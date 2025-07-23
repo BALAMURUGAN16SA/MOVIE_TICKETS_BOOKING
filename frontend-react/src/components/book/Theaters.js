@@ -49,48 +49,10 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
           return acc;
         }, []);
 
-        setIsLoading(true);
+        // Set theaters directly without location-based sorting
+        setTheaters(groupedTheaters);
+        setIsLoading(false);
         
-        navigator.geolocation.getCurrentPosition(
-          async (pos) => {
-            try {
-              setIsLoading(true);
-              const userLat = pos.coords.latitude;
-              const userLng = pos.coords.longitude;
-
-              const geocodedTheaters = await Promise.all(
-                groupedTheaters.map(async (theater) => {
-                  const res = await fetch(
-                    `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(theater.location)}`
-                  );
-                  const geo = await res.json();
-                  if (geo.length > 0) {
-                    const tLat = parseFloat(geo[0].lat);
-                    const tLng = parseFloat(geo[0].lon);
-                    const distance = getDistanceFromLatLonInKm(userLat, userLng, tLat, tLng);
-                    return { ...theater, distance };
-                  } else {
-                    return { ...theater, distance: Infinity };
-                  }
-                })
-              );
-
-              const sorted = geocodedTheaters.sort((a, b) => a.distance - b.distance);
-              setTheaters(sorted);
-            } catch (err) {
-              console.error("Geocoding error:", err);
-              setError("Error calculating distances");
-            } finally {
-              setIsLoading(false);
-            }
-          },
-          (err) => {
-            console.error("Geolocation error:", err);
-            setError("Could not determine your location. Showing theaters without distance sorting.");
-            setTheaters(groupedTheaters);
-            setIsLoading(false);
-          }
-        );
       } catch (err) {
         console.error("Failed to fetch theaters:", err);
         setError(err.message);
@@ -311,10 +273,6 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
                             <span className="theater-meta">
                               <FaMapMarkerAlt className="me-2" />
                               {theater.location.toUpperCase()}
-                            </span>
-                            <span className="theater-distance">
-                              <FaRoad className="me-2" />
-                              {Math.floor(theater.distance) || 'N/A'} km away
                             </span>
                           </div>
                           
