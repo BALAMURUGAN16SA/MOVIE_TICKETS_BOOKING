@@ -75,93 +75,95 @@ const CustomNavbar = ({ setShowProfile, loginOutButton, setLoginOutButton, setSh
         </Toast>
       </ToastContainer>
 
-      <Navbar expand="lg" className="modern-navbar py-3" variant="dark" style={{ zIndex: 1050 }}>
-        <Container fluid className="px-3 px-lg-5">
-          <Navbar.Brand className="d-flex align-items-center me-0 me-lg-5">
-            <HiOutlineTicket 
-              size={40}
-              className="me-2"
-              style={{
+      <div className="navbar-wrapper">
+        <Navbar expand="lg" className="modern-navbar py-3" variant="dark" style={{ zIndex: 1050 }}>
+          <Container fluid className="px-3 px-lg-5">
+            <Navbar.Brand className="d-flex align-items-center me-0 me-lg-5">
+              <HiOutlineTicket 
+                size={40}
+                className="me-2"
+                style={{
+                  color: '#00c900',
+                  backgroundColor: '#000c07',
+                  borderRadius: '50%',
+                  boxShadow: '0 0 10px #00c90033',
+                  transition: 'transform 0.3s ease',
+                  cursor: 'pointer'
+                }}
+              />
+              <span style={{
                 color: '#00c900',
-                backgroundColor: '#000c07',
-                borderRadius: '50%',
-                boxShadow: '0 0 10px #00c90033',
-                transition: 'transform 0.3s ease',
-                cursor: 'pointer'
-              }}
-            />
-            <span style={{
-              color: '#00c900',
-              fontWeight: '800',
-              fontSize: '1.75rem',
-              letterSpacing: '-0.5px',
-            }}>
-              DbaasT
-            </span>
-          </Navbar.Brand>
-
-          <Button 
-            variant="link" 
-            className="d-lg-none border-0 p-0 ms-auto"
-            onClick={handleShow}
-            aria-label="Toggle navigation"
-          >
-            <FiMenu size={24} color="#00c900" />
-          </Button>
-
-          <Navbar.Collapse id="navbar-desktop">
-            <Nav className="mx-auto">
-              {navItems.map(({ name, icon }) => (
-                <Nav.Link
-                  key={name}
-                  onClick={() => {
-                    if (name === 'Profile') {
-                      handleProfileClick();
-                    } else if (name === 'Home') {
-                      navigate('/');
-                    } else if (name === 'Movies') {
-                      onMoviesClick();
-                    } else if (name === 'Theater') {
-                      onTheatersClick();
-                    } else if (name === 'History / Cancel') {
-                      handleHistory();
-                    }
-                  }}
-                  className="nav-link-modern position-relative mx-2 px-3"
-                  style={{ borderLeft: '2px solid #00c900' }}
-                >
-                  <span className="nav-link-text">{name}</span>
-                  <span className="nav-link-icon">{icon}</span>
-                  <span className="nav-link-underline"></span>
-                </Nav.Link>
-              ))}
-            </Nav>
-
-            <div className="d-flex align-items-center gap-3">
-              {(loginOutButton || accessToken || refreshToken) && isTokenValid(refreshToken)? (
-                <Button 
-                  variant="success" 
-                  className="contact-btn px-4 py-2"
-                  onClick={handleLogout}
-                >
-                  Logout
+                fontWeight: '800',
+                fontSize: '1.75rem',
+                letterSpacing: '-0.5px',
+              }}>
+                DbaasT
+              </span>
+            </Navbar.Brand>
+  
+            <Button 
+              variant="link" 
+              className="d-lg-none border-0 p-0 ms-auto"
+              onClick={handleShow}
+              aria-label="Toggle navigation"
+            >
+              <FiMenu size={24} color="#00c900" />
+            </Button>
+  
+            <Navbar.Collapse id="navbar-desktop">
+              <Nav className="mx-auto">
+                {navItems.map(({ name, icon }) => (
+                  <Nav.Link
+                    key={name}
+                    onClick={() => {
+                      if (name === 'Profile') {
+                        handleProfileClick();
+                      } else if (name === 'Home') {
+                        navigate('/');
+                      } else if (name === 'Movies') {
+                        onMoviesClick();
+                      } else if (name === 'Theater') {
+                        onTheatersClick();
+                      } else if (name === 'History / Cancel') {
+                        handleHistory();
+                      }
+                    }}
+                    className="nav-link-modern position-relative mx-2 px-3"
+                    style={{ borderLeft: '2px solid #00c900' }}
+                  >
+                    <span className="nav-link-text">{name}</span>
+                    <span className="nav-link-icon">{icon}</span>
+                    <span className="nav-link-underline"></span>
+                  </Nav.Link>
+                ))}
+              </Nav>
+  
+              <div className="d-flex align-items-center gap-3">
+                {(loginOutButton || accessToken || refreshToken) && isTokenValid(refreshToken)? (
+                  <Button 
+                    variant="success" 
+                    className="contact-btn px-4 py-2"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </Button>
+                ) : (
+                  <Button 
+                    variant="success" 
+                    className="contact-btn px-4 py-2"
+                    onClick={handleLogin}
+                  >
+                    Login
+                  </Button>
+                )}
+                <Button variant="success" className="contact-btn px-4 py-2" onClick={() => setShowContact(true)}>
+                  Contact Us
                 </Button>
-              ) : (
-                <Button 
-                  variant="success" 
-                  className="contact-btn px-4 py-2"
-                  onClick={handleLogin}
-                >
-                  Login
-                </Button>
-              )}
-              <Button variant="success" className="contact-btn px-4 py-2" onClick={() => setShowContact(true)}>
-                Contact Us
-              </Button>
-            </div>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+              </div>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+      </div>
 
       <Offcanvas 
         show={showOffcanvas} 
