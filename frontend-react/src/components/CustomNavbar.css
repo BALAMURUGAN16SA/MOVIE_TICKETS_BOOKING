@@ -9,6 +9,11 @@
   font-family: 'Space Grotesk';
 }
 
+.navbar-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 /* Animated Nav Links */
 .nav-link-modern {
   color: #e0e0e0 !important;
