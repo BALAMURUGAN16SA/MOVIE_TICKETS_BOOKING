@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { InputGroup, Container, Row, Col, Form, Button, Card, Spinner, Alert } from "react-bootstrap";
-import { FaParking, FaWheelchair, FaSearch, FaTimes, FaMapMarkerAlt, FaRoad, FaClock, FaFilm, FaCalendarAlt } from 'react-icons/fa';
+import { FaParking, FaWheelchair, FaSearch, FaTimes, FaMapMarkerAlt, FaRoad, FaClock, FaFilm, FaCalendarAlt, FaLocationArrow } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './Theaters.css';
 
@@ -16,15 +16,15 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
   const [origin, setOrigin] = useState(null);
   const [destination, setDestination] = useState(null);
   const [hasLocation, setHasLocation] = useState(false);
-
-  // Cache for geocoded locations to avoid repeated API calls
+  const [locationStatus, setLocationStatus] = useState('checking'); // 'checking', 'enabled', 'disabled', 'unavailable'
   const [locationCache, setLocationCache] = useState({});
-  const [locationPermissionDenied, setLocationPermissionDenied] = useState(false);
+
   useEffect(() => {
     const fetchTheaters = async () => {
       try {
         setIsLoading(true);
         setError(null);
+        setLocationStatus('checking');
         
         const response = await fetch(`https://movie-tickets-booking-8bn9.onrender.com/user/theaters_showing_selected_movie?movie_id=${movieId}`);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -53,13 +53,24 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
           return acc;
         }, []);
 
-        // Try to get location and sort by distance, but don't block if it fails
+        // Check if geolocation is available
+        if (!navigator.geolocation) {
+          console.log("Geolocation is not supported by this browser");
+          setLocationStatus('unavailable');
+          setHasLocation(false);
+          setTheaters(groupedTheaters);
+          setIsLoading(false);
+          return;
+        }
+
+        // Try to get location with improved error handling
         navigator.geolocation.getCurrentPosition(
           async (pos) => {
             try {
               const userLat = pos.coords.latitude;
               const userLng = pos.coords.longitude;
               setHasLocation(true);
+              setLocationStatus('enabled');
 
               // Show theaters immediately without distance, then update with distances
               setTheaters(groupedTheaters);
@@ -137,7 +148,6 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
                   setTheaters(sortedTheaters);
                 } catch (err) {
                   console.error("Batch processing error:", err);
-                  setLocationPermissionDenied(true);
                 }
 
                 // Add delay between batches
@@ -148,16 +158,31 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
             } catch (err) {
               console.error("Error processing location data:", err);
               // If geocoding fails, show theaters without distance sorting
+              setLocationStatus('enabled');
+              setHasLocation(true);
               setTheaters(groupedTheaters);
               setIsLoading(false);
             }
           },
           (err) => {
-            console.log("Location permission denied or unavailable, showing theaters without distance sorting");
-            // Location denied or unavailable - show theaters in original order
+            console.log("Location permission denied or unavailable:", err.message);
+            // Handle different types of location errors
+            if (err.code === err.PERMISSION_DENIED) {
+              setLocationStatus('disabled');
+            } else if (err.code === err.POSITION_UNAVAILABLE) {
+              setLocationStatus('unavailable');
+            } else {
+              setLocationStatus('disabled');
+            }
+            
             setHasLocation(false);
             setTheaters(groupedTheaters);
             setIsLoading(false);
+          },
+          {
+            timeout: 15000, // 15 second timeout
+            enableHighAccuracy: false,
+            maximumAge: 300000 // 5 minutes cache
           }
         );
       } catch (err) {
@@ -188,9 +213,27 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
 
   async function getDirections(theater) {
     try {
-      // 1. Get current position
+      // Check if geolocation is available
+      if (!navigator.geolocation) {
+        // Fallback: Open Google Maps with just the theater location
+        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(theater.location)}&travelmode=driving`;
+        window.open(mapsUrl, '_blank');
+        return;
+      }
+
+      // Get current position
       const getCurrentPosition = () => 
-        new Promise((resolve, reject) => navigator.geolocation.getCurrentPosition(resolve, reject));
+        new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(
+            resolve, 
+            reject,
+            {
+              timeout: 10000,
+              enableHighAccuracy: false,
+              maximumAge: 300000
+            }
+          );
+        });
       
       const pos = await getCurrentPosition();
       const userCoords = {
@@ -198,19 +241,22 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
         lng: pos.coords.longitude
       };
 
-      // 2. Get theater location
+      // Get theater location
       const res = await fetch(
         `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(theater.location)}`,
         {
           headers: {
-            'User-Agent': 'localhost' // Required by Nominatim
+            'User-Agent': 'MovieBookingApp/1.0'
           }
         }
       );
       const geo = await res.json();
       
       if (!geo || geo.length === 0) {
-        throw new Error('Theater location not found');
+        // Fallback: Use location name in Google Maps
+        const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(theater.location)}&travelmode=driving`;
+        window.open(mapsUrl, '_blank');
+        return;
       }
 
       const theaterCoords = {
@@ -221,13 +267,15 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
       setOrigin(userCoords);
       setDestination(theaterCoords);
 
-      // 4. Immediately open Google Maps with the coordinates we just got
+      // Open Google Maps with coordinates
       const mapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${userCoords.lat},${userCoords.lng}&destination=${theaterCoords.lat},${theaterCoords.lng}&travelmode=driving`;
       window.open(mapsUrl, '_blank');
 
     } catch(err) {
       console.error("Error getting directions:", err);
-      alert("Could not get directions. Please check location permissions.");
+      // Fallback: Open Google Maps with just the theater location
+      const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(theater.location)}&travelmode=driving`;
+      window.open(mapsUrl, '_blank');
     }
   }
 
@@ -261,11 +309,78 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
       );
     }) || [];
 
+  const handleScreenClick = (theaterId, screenId, showDate, showTime, theaterName, theaterLocation) => {
+    setTheaterId(theaterId);
+    setScreenId(screenId);
+    setShowDate(showDate);
+    setShowTime(showTime);
+    setTheaterName(theaterName);
+    setTheaterLocation(theaterLocation);
+    onAllSelected();
+  }
+
+  // Location status message component
+  const LocationStatusMessage = () => {
+    if (locationStatus === 'checking') return null;
+    
+    const getStatusInfo = () => {
+      switch (locationStatus) {
+        case 'disabled':
+          return {
+            variant: 'warning',
+            icon: <FaLocationArrow className="me-2" />,
+            title: 'Location Access Disabled',
+            message: 'Enable location services to see theaters sorted by distance from your location.'
+          };
+        case 'unavailable':
+          return {
+            variant: 'info',
+            icon: <FaLocationArrow className="me-2" />,
+            title: 'Location Unavailable',
+            message: 'Unable to determine your location. Theaters are shown in default order.'
+          };
+        case 'enabled':
+          return hasLocation ? null : {
+            variant: 'info',
+            icon: <FaLocationArrow className="me-2" />,
+            title: 'Location Processing',
+            message: 'Getting your location to sort theaters by distance...'
+          };
+        default:
+          return null;
+      }
+    };
+
+    const statusInfo = getStatusInfo();
+    if (!statusInfo) return null;
+
+    return (
+      <Row className="justify-content-center mb-3">
+        <Col xs={12} md={10} lg={8}>
+          <Alert variant={statusInfo.variant} className="text-center mb-3">
+            <div className="d-flex align-items-center justify-content-center">
+              {statusInfo.icon}
+              <div>
+                <strong>{statusInfo.title}</strong>
+                <div className="small mt-1">{statusInfo.message}</div>
+              </div>
+            </div>
+          </Alert>
+        </Col>
+      </Row>
+    );
+  };
+
   if (isLoading) {
     return (
       <Container fluid className="theaters-section d-flex flex-column align-items-center justify-content-center">
         <Spinner animation="border" variant="success" />
-        <p className="text-center">Loading theaters based on current location...</p>
+        <p className="text-center mt-3">
+          {locationStatus === 'checking' ? 
+            'Loading theaters and checking location...' : 
+            'Loading theaters...'
+          }
+        </p>
       </Container>
     );
   }
@@ -281,30 +396,10 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
     );
   }
 
-  const handleScreenClick = (theaterId, screenId, showDate, showTime, theaterName, theaterLocation) => {
-    setTheaterId(theaterId);
-    setScreenId(screenId);
-    setShowDate(showDate);
-    setShowTime(showTime);
-    setTheaterName(theaterName);
-    setTheaterLocation(theaterLocation);
-    onAllSelected();
-  }
-
   return (
     <Container fluid className="theaters-section py-4">
-      {locationPermissionDenied && (
-        <Row className="justify-content-center mb-3">
-          <Col xs={12} md={8} lg={6}>
-            <Alert variant="warning" className="text-center mb-3">
-              <small>
-                <i className="bi bi-info-circle me-2"></i>
-                Location access denied. Showing theaters without distance sorting.
-              </small>
-            </Alert>
-          </Col>
-        </Row>
-      )}
+      <LocationStatusMessage />
+      
       <Row className="justify-content-center mt-2 mb-2">
         <Col xs={12} lg={10} className="text-center">
           <div className="movie-header-centered" style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
@@ -318,6 +413,7 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
           </div>
         </Col>
       </Row>
+      
       <Row className="justify-content-center mb-4">
         <Col xs={12} md={8} lg={6} className="mb-3">
           <InputGroup>
@@ -394,10 +490,10 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
                               <FaMapMarkerAlt className="me-2" />
                               {theater.location.toUpperCase()}
                             </span>
-                            {hasLocation && theater.distance !== undefined && (
+                            {hasLocation && theater.distance !== undefined && theater.distance !== Infinity && (
                               <span className="theater-distance">
                                 <FaRoad className="me-2" />
-                                {Math.floor(theater.distance) || 'N/A'} km away
+                                {Math.round(theater.distance * 10) / 10} km away
                               </span>
                             )}
                           </div>
@@ -408,7 +504,7 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
                               {theater.parking ? 'Yes' : 'No'}
                             </span>
                             <span className="theater-meta d-flex align-items-center gap-2">
-                              <FaWheelchair className="text-success" title="Accesibility Available"/>
+                              <FaWheelchair className="text-success" title="Accessibility Available"/>
                               {theater.accessibility ? 'Yes' : 'No'}
                             </span>
                             <span className="theater-meta d-flex align-items-center gap-2">
