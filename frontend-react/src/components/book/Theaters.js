@@ -15,6 +15,7 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
   const [error, setError] = useState(null);
   const [origin, setOrigin] = useState(null);
   const [destination, setDestination] = useState(null);
+  const [hasLocation, setHasLocation] = useState(false);
 
   useEffect(() => {
     const fetchTheaters = async () => {
@@ -49,10 +50,54 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
           return acc;
         }, []);
 
-        // Set theaters directly without location-based sorting
-        setTheaters(groupedTheaters);
-        setIsLoading(false);
-        
+        // Try to get location and sort by distance, but don't block if it fails
+        navigator.geolocation.getCurrentPosition(
+          async (pos) => {
+            try {
+              const userLat = pos.coords.latitude;
+              const userLng = pos.coords.longitude;
+              setHasLocation(true);
+
+              const geocodedTheaters = await Promise.all(
+                groupedTheaters.map(async (theater) => {
+                  try {
+                    const res = await fetch(
+                      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(theater.location)}`
+                    );
+                    const geo = await res.json();
+                    if (geo.length > 0) {
+                      const tLat = parseFloat(geo[0].lat);
+                      const tLng = parseFloat(geo[0].lon);
+                      const distance = getDistanceFromLatLonInKm(userLat, userLng, tLat, tLng);
+                      return { ...theater, distance };
+                    } else {
+                      return { ...theater, distance: Infinity };
+                    }
+                  } catch (err) {
+                    console.error("Geocoding error for theater:", theater.name, err);
+                    return { ...theater, distance: Infinity };
+                  }
+                })
+              );
+
+              const sorted = geocodedTheaters.sort((a, b) => a.distance - b.distance);
+              setTheaters(sorted);
+            } catch (err) {
+              console.error("Error processing location data:", err);
+              // If geocoding fails, show theaters without distance sorting
+              setTheaters(groupedTheaters);
+            } finally {
+              setIsLoading(false);
+            }
+          },
+          (err) => {
+            console.log("Location permission denied or unavailable, showing theaters without distance sorting");
+            // Location denied or unavailable - show theaters in original order
+            setHasLocation(false);
+            setTheaters(groupedTheaters);
+            setIsLoading(false);
+          }
+        );
       } catch (err) {
         console.error("Failed to fetch theaters:", err);
         setError(err.message);
@@ -120,6 +165,7 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
 
     } catch(err) {
       console.error("Error getting directions:", err);
+      alert("Could not get directions. Please check location permissions.");
     }
   }
 
@@ -274,6 +320,12 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
                               <FaMapMarkerAlt className="me-2" />
                               {theater.location.toUpperCase()}
                             </span>
+                            {hasLocation && theater.distance !== undefined && (
+                              <span className="theater-distance">
+                                <FaRoad className="me-2" />
+                                {Math.floor(theater.distance) || 'N/A'} km away
+                              </span>
+                            )}
                           </div>
                           
                           <div className="theater-meta-row">
