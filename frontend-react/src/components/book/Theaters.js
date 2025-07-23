@@ -19,7 +19,7 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
 
   // Cache for geocoded locations to avoid repeated API calls
   const [locationCache, setLocationCache] = useState({});
-
+  const [locationPermissionDenied, setLocationPermissionDenied] = useState(false);
   useEffect(() => {
     const fetchTheaters = async () => {
       try {
@@ -137,6 +137,7 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
                   setTheaters(sortedTheaters);
                 } catch (err) {
                   console.error("Batch processing error:", err);
+                  setLocationPermissionDenied(true);
                 }
 
                 // Add delay between batches
@@ -292,6 +293,18 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
 
   return (
     <Container fluid className="theaters-section py-4">
+      {locationPermissionDenied && (
+        <Row className="justify-content-center mb-3">
+          <Col xs={12} md={8} lg={6}>
+            <Alert variant="warning" className="text-center mb-3">
+              <small>
+                <i className="bi bi-info-circle me-2"></i>
+                Location access denied. Showing theaters without distance sorting.
+              </small>
+            </Alert>
+          </Col>
+        </Row>
+      )}
       <Row className="justify-content-center mt-2 mb-2">
         <Col xs={12} lg={10} className="text-center">
           <div className="movie-header-centered" style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
