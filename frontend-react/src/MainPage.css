@@ -1,8 +1,3 @@
-body {
-  transform: scale(0.95);
-  transform-origin: top center;
-  overflow-x: hidden; 
-}
 /* View Toggle Wrapper - Dark Theme Integration */
 .view-toggle-wrapper {
   background: linear-gradient(to bottom, 
