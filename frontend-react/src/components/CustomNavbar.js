@@ -75,7 +75,6 @@ const CustomNavbar = ({ setShowProfile, loginOutButton, setLoginOutButton, setSh
         </Toast>
       </ToastContainer>
 
-      <div className="navbar-wrapper">
         <Navbar expand="lg" className="modern-navbar py-3" variant="dark" style={{ zIndex: 1050 }}>
           <Container fluid className="px-3 px-lg-5">
             <Navbar.Brand className="d-flex align-items-center me-0 me-lg-5">
@@ -163,7 +162,6 @@ const CustomNavbar = ({ setShowProfile, loginOutButton, setLoginOutButton, setSh
             </Navbar.Collapse>
           </Container>
         </Navbar>
-      </div>
 
       <Offcanvas 
         show={showOffcanvas} 
