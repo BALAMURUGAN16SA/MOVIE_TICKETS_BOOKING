@@ -38,7 +38,7 @@
 
 .nav-link-modern:hover .nav-link-underline,
 .nav-link-modern.active .nav-link-underline {
-  width: 100%;
+  width: 90%;
 }
 
 .nav-link-modern:hover,
