@@ -3,6 +3,7 @@ import { InputGroup, Container, Row, Col, Form, Button, Card, Spinner, Alert} fr
 import { FaSearch, FaFilter } from 'react-icons/fa';
 import './Movies.css';
 import { useNavigate } from "react-router-dom";
+
 const Movies = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("newest");
@@ -67,40 +68,41 @@ const Movies = () => {
       </Container>
     );
   }
+
   return (
     <Container fluid className="movies-section py-4 position-relative">
       {/* Search and Filter Section */}
       
       <Row className="justify-content-center mb-4">
         <Col xs={12} md={4} lg={3} className="mb-3">
-                <InputGroup>
-                    <InputGroup.Text className="bg-dark text-success border-success">
-                    <FaSearch />
-                    </InputGroup.Text>
-                    <Form.Control
-                        type="text"
-                        placeholder="Search movies by name or location..."
-                        className="search-input"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                </InputGroup>
-            </Col>
+          <InputGroup>
+            <InputGroup.Text className="bg-dark text-success border-success">
+              <FaSearch />
+            </InputGroup.Text>
+            <Form.Control
+              type="text"
+              placeholder="Search movies by name or location..."
+              className="search-input"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </InputGroup>
+        </Col>
         <Col xs={12} md={4} lg={3} className="mb-3">
-                <InputGroup>
-                    <InputGroup.Text className="bg-dark text-success border-success">
-                    <FaFilter />
-                    </InputGroup.Text>
-                    <Form.Select
-                    className="filter-select"
-                    value={sortOrder}
-                    onChange={(e) => setSortOrder(e.target.value)}
-                    >
-                    <option value="newest">Newest First</option>
-                    <option value="oldest">Oldest First</option>
-                    </Form.Select>
-                </InputGroup>
-            </Col>
+          <InputGroup>
+            <InputGroup.Text className="bg-dark text-success border-success">
+              <FaFilter />
+            </InputGroup.Text>
+            <Form.Select
+              className="filter-select"
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+            >
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+            </Form.Select>
+          </InputGroup>
+        </Col>
       </Row>
 
       {/* Movies Grid */}
