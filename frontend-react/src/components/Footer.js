@@ -13,7 +13,7 @@ const Footer = () => {
               <Col xs={12} md={4} className="text-center mb-3 mb-md-0">
                 <div className="info footer-item d-flex justify-content-center">
                   <FaEnvelope className="footer-icon mt-1" />
-                  <a href="mailto:contact@dbaast.com" className="footer-link">contact@dbaast.com</a>
+                  <a href="mailto:contact@bala.com" className="footer-link">contact@bala.com</a>
                 </div>
               </Col>
 
@@ -27,7 +27,7 @@ const Footer = () => {
               <Col xs={12} md={4} className="text-center">
                 <div className="info footer-item d-flex justify-content-center">
                   <FaGlobe className="footer-icon mt-1" />
-                  <a href="https://www.dbaast.com" target="_blank" rel="noopener noreferrer" className="footer-link">www.dbaast.com</a>
+                  <a href="https://www.balamtb.com" target="_blank" rel="noopener noreferrer" className="footer-link">www.balamtb.com</a>
                 </div>
               </Col>
             </Row>
