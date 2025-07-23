@@ -172,16 +172,17 @@
 
 /* Mobile styles */
 @media (max-width: 767.98px) {
-    .movie-poster-container {
-      display: flex;
-      align-items: center;
-      justify-content: center; /* Ensures horizontal centering */
-      /* margin: 1rem auto;        Optional: centers container itself horizontally */
-      border-radius: 8px;
-      width: 90%;
-      overflow: hidden;
-      background-color: rgba(0, 12, 7, 0.9) !important;
-    }
+  .movie-poster-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Ensures horizontal centering */
+    /* margin: 1rem auto;        Optional: centers container itself horizontally */
+    border-radius: 8px;
+    width: 90%;
+    overflow: hidden;
+    background-color: rgba(0, 12, 7, 0.9) !important;
+  }
+  
   .movie-poster {
     height: 180px;
     width: 100%;
@@ -196,13 +197,23 @@
     font-size: 0.8rem;
     padding: 0.3rem 0.6rem;
   }
+  
   .movie-genre, .movie-meta-certificate {
     margin-left: 0.8rem;
   }
+  
+  /* Fixed: Center the book now button in mobile */
+  .movie-action-section {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0 0.8rem;
+  }
+  
   .book-now-btn {
     padding: 0.6rem 1rem;
     font-size: 0.8rem;
-    margin-left: 0.8rem;
+    margin: 0; /* Remove left margin */
     margin-bottom: 0.4rem;
   }
 }
