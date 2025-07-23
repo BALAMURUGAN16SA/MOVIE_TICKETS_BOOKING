@@ -75,8 +75,8 @@ const CustomNavbar = ({ setShowProfile, loginOutButton, setLoginOutButton, setSh
         </Toast>
       </ToastContainer>
 
-        <Navbar expand="lg" className="modern-navbar py-3" variant="dark" style={{ zIndex: 1050 }}>
-          <Container fluid className="px-3 px-lg-5">
+        <Navbar expand="lg" className="modern-navbar py-1" variant="dark" style={{ zIndex: 1050 }}>
+          <Container fluid className="px-2 px-lg-3">
             <Navbar.Brand className="d-flex align-items-center me-0 me-lg-5">
               <HiOutlineTicket 
                 size={40}
