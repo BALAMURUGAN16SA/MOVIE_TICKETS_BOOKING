@@ -13,7 +13,7 @@ const Footer = () => {
               <Col xs={12} md={4} className="text-center mb-3 mb-md-0">
                 <div className="info footer-item d-flex justify-content-center">
                   <FaEnvelope className="footer-icon mt-1" />
-                  <a href="mailto:contact@bala.com" className="footer-link">contact@bala.com</a>
+                  <a href="mailto:contact@balamtb.com" className="footer-link">contact@balamtb.com</a>
                 </div>
               </Col>
 
