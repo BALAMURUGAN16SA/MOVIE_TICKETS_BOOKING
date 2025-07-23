@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { InputGroup, Container, Row, Col, Form, Button, Card, Spinner, Alert } from "react-bootstrap";
-import { FaParking, FaWheelchair, FaSearch, FaTimes, FaMapMarkerAlt, FaRoad, FaClock, FaFilm, FaCalendarAlt, FaLocationArrow } from 'react-icons/fa';
+import { FaParking, FaWheelchair, FaSearch, FaTimes, FaMapMarkerAlt, FaRoad, FaClock, FaFilm, FaCalendarAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './Theaters.css';
 
@@ -16,7 +16,7 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
   const [origin, setOrigin] = useState(null);
   const [destination, setDestination] = useState(null);
   const [hasLocation, setHasLocation] = useState(false);
-  const [locationStatus, setLocationStatus] = useState('checking'); // 'checking', 'enabled', 'disabled', 'unavailable'
+  const [locationStatus, setLocationStatus] = useState('checking');
   const [locationCache, setLocationCache] = useState({});
 
   useEffect(() => {
@@ -328,7 +328,7 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
         case 'disabled':
           return {
             variant: 'warning',
-            icon: <FaLocationArrow className="me-2" />,
+            icon: <i className="bi bi-info-circle me-2" />,
             title: 'Location Access Disabled',
             message: 'Enable location services to see theaters sorted by distance from your location.'
           };
