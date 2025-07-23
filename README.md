@@ -1,5 +1,12 @@
 ### ONLINE MOVIE TICKET BOOKING SYSTEM
 
+**App Link** - https://movie-tickets-booking-balamurugan16sas-projects.vercel.app/
+
+**Deployed using** - 
+  - Frontend - React - Vercel
+  - Backend  - Flask - Render
+  - Database - PSQL  - Neon 
+
 ---
 
 ### Project Structure
