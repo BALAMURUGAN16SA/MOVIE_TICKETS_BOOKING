@@ -10,7 +10,6 @@ import Seats from './components/book/Seats';
 import { AuthProvider } from './components/Auth';
 function App() {
   return (
-    <div className="app-container">
       <AuthProvider>
         <BrowserRouter>
           <Routes>
@@ -25,7 +24,6 @@ function App() {
           </Routes>
         </BrowserRouter>
       </AuthProvider>
-  </div>
   );
 } 
 
