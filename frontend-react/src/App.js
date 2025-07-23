@@ -10,20 +10,22 @@ import Seats from './components/book/Seats';
 import { AuthProvider } from './components/Auth';
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/admin-dashboard" element={<Admin />} />
-          <Route path="/admin-dashboard/add-movies" element={<AddMovies />} />
-          <Route path="/admin-dashboard/add-theaters" element={<AddTheaters />} />
-          <Route path="/admin-dashboard/add-shows" element={<AddShows />} />
-          <Route path="/bookings/:movieId/:movieName/:movieDate" element={<Bookings />} />
-          <Route path="/lookings/:theaterId/:theaterName/:theaterLocation" element={<Lookings />} />
-          <Route path="/seats" element={<Seats />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+    <div className="app-container">
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/admin-dashboard" element={<Admin />} />
+            <Route path="/admin-dashboard/add-movies" element={<AddMovies />} />
+            <Route path="/admin-dashboard/add-theaters" element={<AddTheaters />} />
+            <Route path="/admin-dashboard/add-shows" element={<AddShows />} />
+            <Route path="/bookings/:movieId/:movieName/:movieDate" element={<Bookings />} />
+            <Route path="/lookings/:theaterId/:theaterName/:theaterLocation" element={<Lookings />} />
+            <Route path="/seats" element={<Seats />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+  </div>
   );
 } 
 
