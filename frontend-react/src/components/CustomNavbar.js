@@ -96,7 +96,7 @@ const CustomNavbar = ({ setShowProfile, loginOutButton, setLoginOutButton, setSh
                 fontSize: '1.75rem',
                 letterSpacing: '-0.5px',
               }}>
-                Bala - Movie_Ticket_Booking
+                Bala - MTB
               </span>
             </Navbar.Brand>
   
