@@ -245,7 +245,6 @@ const Theaters = () => {
           <Col xs={12} md={8} lg={6}>
             <Alert variant="warning" className="text-center mb-3">
               <small>
-                <i className="bi bi-info-circle me-2"></i>
                 Location access denied. Showing theaters without distance sorting.
               </small>
             </Alert>
