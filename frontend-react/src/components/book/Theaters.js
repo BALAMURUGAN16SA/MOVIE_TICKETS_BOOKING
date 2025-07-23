@@ -17,6 +17,9 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
   const [destination, setDestination] = useState(null);
   const [hasLocation, setHasLocation] = useState(false);
 
+  // Cache for geocoded locations to avoid repeated API calls
+  const [locationCache, setLocationCache] = useState({});
+
   useEffect(() => {
     const fetchTheaters = async () => {
       try {
@@ -58,35 +61,93 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
               const userLng = pos.coords.longitude;
               setHasLocation(true);
 
-              const geocodedTheaters = await Promise.all(
-                groupedTheaters.map(async (theater) => {
+              // Show theaters immediately without distance, then update with distances
+              setTheaters(groupedTheaters);
+              setIsLoading(false);
+
+              // Process theaters in batches to avoid rate limits and improve performance
+              const batchSize = 3;
+              const theatersWithDistance = [...groupedTheaters];
+              
+              for (let i = 0; i < groupedTheaters.length; i += batchSize) {
+                const batch = groupedTheaters.slice(i, i + batchSize);
+                
+                const batchPromises = batch.map(async (theater, batchIndex) => {
                   try {
-                    const res = await fetch(
-                      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(theater.location)}`
-                    );
-                    const geo = await res.json();
-                    if (geo.length > 0) {
-                      const tLat = parseFloat(geo[0].lat);
-                      const tLng = parseFloat(geo[0].lon);
-                      const distance = getDistanceFromLatLonInKm(userLat, userLng, tLat, tLng);
-                      return { ...theater, distance };
+                    // Check cache first
+                    const cacheKey = theater.location.toLowerCase().trim();
+                    let tLat, tLng;
+                    
+                    if (locationCache[cacheKey]) {
+                      tLat = locationCache[cacheKey].lat;
+                      tLng = locationCache[cacheKey].lng;
                     } else {
-                      return { ...theater, distance: Infinity };
+                      // Add delay to respect rate limits
+                      await new Promise(resolve => setTimeout(resolve, batchIndex * 200));
+                      
+                      const res = await fetch(
+                        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(theater.location)}`,
+                        {
+                          headers: {
+                            'User-Agent': 'MovieBookingApp/1.0'
+                          }
+                        }
+                      );
+                      
+                      if (!res.ok) throw new Error(`Geocoding API error: ${res.status}`);
+                      
+                      const geo = await res.json();
+                      if (geo.length > 0) {
+                        tLat = parseFloat(geo[0].lat);
+                        tLng = parseFloat(geo[0].lon);
+                        
+                        // Cache the result
+                        setLocationCache(prev => ({
+                          ...prev,
+                          [cacheKey]: { lat: tLat, lng: tLng }
+                        }));
+                      } else {
+                        return { theater, distance: Infinity, index: i + batchIndex };
+                      }
                     }
+                    
+                    const distance = getDistanceFromLatLonInKm(userLat, userLng, tLat, tLng);
+                    return { theater, distance, index: i + batchIndex };
                   } catch (err) {
                     console.error("Geocoding error for theater:", theater.name, err);
-                    return { ...theater, distance: Infinity };
+                    return { theater, distance: Infinity, index: i + batchIndex };
                   }
-                })
-              );
+                });
 
-              const sorted = geocodedTheaters.sort((a, b) => a.distance - b.distance);
-              setTheaters(sorted);
+                try {
+                  const batchResults = await Promise.all(batchPromises);
+                  
+                  // Update theaters with distance data as we get it
+                  batchResults.forEach(({ theater, distance, index }) => {
+                    theatersWithDistance[index] = { ...theater, distance };
+                  });
+
+                  // Re-sort and update state after each batch
+                  const sortedTheaters = [...theatersWithDistance].sort((a, b) => {
+                    const aDistance = a.distance !== undefined ? a.distance : Infinity;
+                    const bDistance = b.distance !== undefined ? b.distance : Infinity;
+                    return aDistance - bDistance;
+                  });
+                  
+                  setTheaters(sortedTheaters);
+                } catch (err) {
+                  console.error("Batch processing error:", err);
+                }
+
+                // Add delay between batches
+                if (i + batchSize < groupedTheaters.length) {
+                  await new Promise(resolve => setTimeout(resolve, 1000));
+                }
+              }
             } catch (err) {
               console.error("Error processing location data:", err);
               // If geocoding fails, show theaters without distance sorting
               setTheaters(groupedTheaters);
-            } finally {
               setIsLoading(false);
             }
           },
@@ -203,7 +264,7 @@ const Theaters = ({movieId, movieName, movieDate, setTheaterId, setScreenId, set
     return (
       <Container fluid className="theaters-section d-flex flex-column align-items-center justify-content-center">
         <Spinner animation="border" variant="success" />
-        <p className="text-center">Loading theaters...</p>
+        <p className="text-center">Loading theaters based on current location...</p>
       </Container>
     );
   }
