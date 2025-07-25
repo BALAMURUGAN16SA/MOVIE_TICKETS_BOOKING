@@ -58,6 +58,11 @@ const Login = ({ onLogin, onClose, onRegisterClick }) => {
     }
   };
 
+  useEffect(() => {
+    setEmail("user001@gmail.com");
+    setPassword("user001");
+  }, []);
+
   return (
     <>
       <div className="login-overlay">
@@ -101,7 +106,7 @@ const Login = ({ onLogin, onClose, onRegisterClick }) => {
                     </span>
                     <Form.Control
                       type="password"
-                      placeholder="Enter password"
+                      placeholder="Enter Password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
@@ -117,19 +122,14 @@ const Login = ({ onLogin, onClose, onRegisterClick }) => {
                   Sign In
                 </Button>
 
-                <div className="login-divider">
-                  <hr className="login-divider-line" />
-                  <span className="login-divider-text">or</span>
-                  <hr className="login-divider-line" />
+                <div className="login-register-text">
+                  Quick demo? Use the guest credentials above.
                 </div>
 
-                <Button
-                  variant="outline-light"
-                  className="login-google-btn"
-                >
-                  <FaGoogle className="login-google-icon" />
-                  Continue with Google
-                </Button>
+                <div className="login-divider">
+                  <hr className="login-divider-line" />
+                  <hr className="login-divider-line" />
+                </div>
 
                 <div className="login-register-text">
                   Not registered?{' '}

@@ -171,10 +171,10 @@ function App() {
             
             <div className="demo-content">
               <div className="demo-item">
-                <strong>Email:</strong> user001@gmail.com
+                <strong>Email Id : </strong> user001@gmail.com
               </div>
               <div className="demo-item">
-                <strong>Password:</strong> user001
+                <strong>Password : </strong> user001
               </div>
             </div>
             

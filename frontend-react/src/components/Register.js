@@ -282,21 +282,15 @@ const Register = ({ onRegister, onClose, onLoginClick }) => {
               >
                 {isLoading ? 'Creating account...' : 'Register'}
               </Button>
+              
+              <div className="register-login-text">
+                  Quick demo? Use the guest credentials in login.
+              </div>
 
               <div className="register-divider">
                 <hr className="register-divider-line" />
-                <span className="register-divider-text">or</span>
                 <hr className="register-divider-line" />
               </div>
-
-              <Button
-                variant="outline-light"
-                className="register-google-btn"
-                onClick={handleGoogleAuth}
-              >
-                <FaGoogle className="register-google-icon" />
-                Continue with Google
-              </Button>
 
               <div className="register-login-text">
                 Already have an account?{' '}
