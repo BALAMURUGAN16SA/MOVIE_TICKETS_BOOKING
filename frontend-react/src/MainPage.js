@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { ButtonGroup, ToggleButton, Modal, Button } from 'react-bootstrap';
+import { User, Mail, Lock, Info } from 'lucide-react';
 import CustomNavbar from './components/CustomNavbar';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
@@ -12,6 +13,7 @@ import Contact from './components/Contact';
 import Movies from './components/Movies';
 import Theaters from './components/Theaters';
 import './MainPage.css';
+
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [loginOutButton, setLoginOutButton] = useState(false);
@@ -155,23 +157,70 @@ function App() {
         />
       )}
 
-      <Modal show={showDummyPopup} onHide={() => setShowDummyPopup(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Try without Registering</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p><strong>Email:</strong> user001@gmail.com</p>
-          <p><strong>Password:</strong> user001</p>
-          <p className="text-muted" style={{ fontSize: '0.9em' }}>
-            Use these credentials to explore the app freely.
-          </p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={() => setShowDummyPopup(false)}>
-            Got it
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {/* Custom Styled Modal */}
+      {showDummyPopup && (
+        <div className="demo-overlay">
+          <div className="demo-container">
+            <div className="demo-card">
+              <div className="demo-card-body">
+                <button 
+                  className="demo-close-btn"
+                  onClick={() => setShowDummyPopup(false)}
+                  aria-label="Close"
+                >
+                  ×
+                </button>
+                
+                <div className="demo-header">
+                  <div className="demo-icon-container">
+                    <User className="demo-main-icon" />
+                  </div>
+                  <h3 className="demo-title">Try without Registering</h3>
+                  <p className="demo-subtitle">Use these demo credentials to explore the app</p>
+                </div>
+
+                <div className="demo-details">
+                  <div className="demo-detail-item">
+                    <div className="demo-detail-label">
+                      <Mail className="demo-detail-icon" />
+                      Email Address
+                    </div>
+                    <div className="demo-detail-value">
+                      <Mail className="demo-detail-icon" />
+                      user001@gmail.com
+                    </div>
+                  </div>
+
+                  <div className="demo-detail-item">
+                    <div className="demo-detail-label">
+                      <Lock className="demo-detail-icon" />
+                      Password
+                    </div>
+                    <div className="demo-detail-value">
+                      <Lock className="demo-detail-icon" />
+                      user001
+                    </div>
+                  </div>
+
+                  <div className="demo-info-note">
+                    <Info className="demo-info-icon" />
+                    <span>These credentials are for demonstration purposes only</span>
+                  </div>
+                </div>
+
+                <div className="demo-footer">
+                  <button 
+                    className="demo-btn-primary"
+                    onClick={() => setShowDummyPopup(false)}
+                  >
+                    Got it
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
     </>
   );
