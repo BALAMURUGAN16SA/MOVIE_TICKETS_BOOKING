@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import React, { useState, useCallback, useMemo, useRef } from 'react';
 import { ButtonGroup, ToggleButton } from 'react-bootstrap';
 import CustomNavbar from './components/CustomNavbar';
 import Sidebar from './components/Sidebar';
@@ -12,7 +12,6 @@ import Contact from './components/Contact';
 import Movies from './components/Movies';
 import Theaters from './components/Theaters';
 import './MainPage.css';
-
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [loginOutButton, setLoginOutButton] = useState(false);
@@ -21,8 +20,6 @@ function App() {
   const [showHistory, setShowHistory] = useState(false);
   const [viewMode, setViewMode] = useState('movies');
   const [showContact, setShowContact] = useState(false);
-  const [showDummyPopup, setShowDummyPopup] = useState(false);
-
   const moviesSectionRef = useRef(null);
     const handleMovieClick = () => {
       setViewMode('movies');
@@ -52,14 +49,6 @@ function App() {
   const profileMemo = useMemo(() => (
     <Profile setShowProfile={stableSetShowProfile} />
   ), [stableSetShowProfile]);
-
-  useEffect(() => {
-  const alreadyShown = sessionStorage.getItem('dummyPopupShown');
-  if (!alreadyShown) {
-    setShowDummyPopup(true);
-    sessionStorage.setItem('dummyPopupShown', 'true');
-  }
-  }, []);
 
   return (
     <>
@@ -155,39 +144,6 @@ function App() {
             setShowHistory={setShowHistory}
         />
       )}
-
-      {/* Minimal Demo Modal */}
-      {showDummyPopup && (
-        <div className="demo-overlay">
-          <div className="demo-modal">
-            <button 
-              className="demo-close"
-              onClick={() => setShowDummyPopup(false)}
-            >
-              ×
-            </button>
-            
-            <h3 className="demo-title">Demo Credentials</h3>
-            
-            <div className="demo-content">
-              <div className="demo-item">
-                <strong>Email Id : </strong> user001@gmail.com
-              </div>
-              <div className="demo-item">
-                <strong>Password : </strong> user001
-              </div>
-            </div>
-            
-            <button 
-              className="demo-btn"
-              onClick={() => setShowDummyPopup(false)}
-            >
-              Got it
-            </button>
-          </div>
-        </div>
-      )}
-
     </>
   );
 }

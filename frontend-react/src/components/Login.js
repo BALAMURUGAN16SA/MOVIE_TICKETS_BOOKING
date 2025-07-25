@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Card, CloseButton, Toast, ToastContainer } from 'react-bootstrap';
-import { FaGoogle, FaLock, FaUser } from 'react-icons/fa';
+import { FaGoogle, FaLock, FaUser, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useAuth } from './Auth';
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import './Login.css';
 const Login = ({ onLogin, onClose, onRegisterClick }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loginStatus, setLoginStatus] = useState(0);
   const { setAccessToken, setRefreshToken } = useAuth();
   const navigate = useNavigate();
@@ -100,20 +101,35 @@ const Login = ({ onLogin, onClose, onRegisterClick }) => {
 
                 <Form.Group className="login-form-group">
                   <Form.Label className="login-label">Password</Form.Label>
-                  <div className="login-input-group">
+                  <div className="login-input-group position-relative">
                     <span className="login-input-icon">
                       <FaLock className="login-icon" />
                     </span>
                     <Form.Control
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       placeholder="Enter Password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
                       className="login-input"
                     />
+                    <span
+                      className="password-toggle-icon"
+                      onClick={() => setShowPassword(!showPassword)}
+                      style={{
+                        position: 'absolute',
+                        right: '10px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        cursor: 'pointer',
+                        color: '#555'
+                      }}
+                    >
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </span>
                   </div>
                 </Form.Group>
+
 
                 <Button
                   type="submit"

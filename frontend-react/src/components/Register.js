@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Form, Button, Card, CloseButton, Alert,  Toast, ToastContainer } from 'react-bootstrap';
-import { FaGoogle, FaLock, FaUser, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaGoogle, FaLock, FaUser, FaMapMarkerAlt, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 import './Register.css';
 
 const Register = ({ onRegister, onClose, onLoginClick }) => {
@@ -15,6 +15,9 @@ const Register = ({ onRegister, onClose, onLoginClick }) => {
   const [locationLoading, setLocationLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const showErrorToast = (message) => {
     setToastMessage(message);
     setShowToast(true);
@@ -196,36 +199,51 @@ const Register = ({ onRegister, onClose, onLoginClick }) => {
               </Form.Group>
 
               <Form.Group className="register-form-group">
-                <Form.Label className="register-label">Password</Form.Label>
-                <div className="register-input-group">
-                  <span className="register-input-icon">
-                    <FaLock className="register-icon" />
-                  </span>
-                  <Form.Control
-                    type="password"
-                    name="password"
-                    placeholder="Create password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    isInvalid={!!errors.password}
-                    className="register-input"
-                  />
-                </div>
-                {errors.password && (
-                  <Form.Control.Feedback type="invalid" className="register-error">
-                    {errors.password}
-                  </Form.Control.Feedback>
-                )}
-              </Form.Group>
+                  <Form.Label className="register-label">Password</Form.Label>
+                  <div className="register-input-group position-relative">
+                    <span className="register-input-icon">
+                      <FaLock className="register-icon" />
+                    </span>
+                    <Form.Control
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      placeholder="Create password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      isInvalid={!!errors.password}
+                      className="register-input"
+                    />
+                    <span
+                      className="password-toggle-icon"
+                      onClick={() => setShowPassword(!showPassword)}
+                      style={{
+                        position: "absolute",
+                        right: "10px",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        cursor: "pointer",
+                        color: "#555"
+                      }}
+                    >
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </span>
+                  </div>
+                  {errors.password && (
+                    <Form.Control.Feedback type="invalid" className="register-error">
+                      {errors.password}
+                    </Form.Control.Feedback>
+                  )}
+                </Form.Group>
+
 
               <Form.Group className="register-form-group">
                 <Form.Label className="register-label">Confirm Password</Form.Label>
-                <div className="register-input-group">
+                <div className="register-input-group position-relative">
                   <span className="register-input-icon">
                     <FaLock className="register-icon" />
                   </span>
                   <Form.Control
-                    type="password"
+                    type={showConfirmPassword ? "text" : "password"}
                     name="confirmPassword"
                     placeholder="Confirm password"
                     value={formData.confirmPassword}
@@ -233,6 +251,20 @@ const Register = ({ onRegister, onClose, onLoginClick }) => {
                     isInvalid={!!errors.confirmPassword}
                     className="register-input"
                   />
+                  <span
+                    className="password-toggle-icon"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    style={{
+                      position: "absolute",
+                      right: "10px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      cursor: "pointer",
+                      color: "#555"
+                    }}
+                  >
+                    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                  </span>
                 </div>
                 {errors.confirmPassword && (
                   <Form.Control.Feedback type="invalid" className="register-error">
@@ -240,6 +272,7 @@ const Register = ({ onRegister, onClose, onLoginClick }) => {
                   </Form.Control.Feedback>
                 )}
               </Form.Group>
+
 
               <Form.Group className="register-form-group">
                 <Form.Label className="register-label">

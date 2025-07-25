@@ -1,11 +1,10 @@
-/* Font Import */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&display=swap');
-
 /* View Toggle Wrapper - Dark Theme Integration */
 .view-toggle-wrapper {
   background: linear-gradient(to bottom, 
     rgba(0, 8, 4, 0.95) 0%, 
     rgba(0, 12, 7, 0.95) 100%);
+  /* padding: 2rem 0; */
+  /* margin: 2rem 0; */
   position: relative;
   overflow: hidden;
   border-top: 1px solid rgba(0, 201, 0, 0.1);
@@ -71,6 +70,8 @@
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .view-toggle-wrapper {
+    /* padding: 1.5rem 0; */
+    /* margin: 1.5rem -15px; */
     border-left: 1px solid rgba(0, 201, 0, 0.05);
     border-right: 1px solid rgba(0, 201, 0, 0.05);
   }
@@ -81,7 +82,6 @@
     margin: 0 auto;
   }
 }
-
 .view-toggle-container {
   background: linear-gradient(135deg, rgba(0, 12, 7, 0.7) 0%, rgba(0, 20, 10, 0.8) 100%) !important;
   padding: 1rem;
@@ -136,6 +136,7 @@
   font-size: 0.85rem;
 }
 
+
 .view-toggle-btn.active {
   color: #00c900 !important;
   background-color: rgba(0, 201, 0, 0.1) !important;
@@ -163,6 +164,8 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .view-toggle-container {
+    /* padding: 1.5rem; */
+    /* margin: 1.5rem auto; */
     width: 90%;
   }
   
@@ -180,114 +183,4 @@
   text-decoration: none !important;
   outline: none !important;
   box-shadow: none !important;
-}
-
-/* Minimal Demo Modal Styles */
-.demo-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1050;
-  font-family: 'Space Grotesk', sans-serif;
-}
-
-.demo-modal {
-  background: rgba(0, 12, 7, 0.95);
-  border: 1px solid rgba(0, 201, 0, 0.4);
-  border-radius: 8px;
-  padding: 1.5rem;
-  max-width: 350px;
-  width: 90%;
-  position: relative;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.demo-close {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  background: none;
-  border: none;
-  color: #aaa;
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.2s ease;
-}
-
-.demo-close:hover {
-  color: #00c900;
-}
-
-.demo-title {
-  color: #00c900;
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin: 0 0 1rem 0;
-  text-align: center;
-}
-
-.demo-content {
-  margin-bottom: 1.5rem;
-}
-
-.demo-item {
-  color: #fff;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-}
-
-.demo-item strong {
-  color: #ccc;
-  display: inline-block;
-  width: 70px;
-}
-
-.demo-btn {
-  background: #00c900;
-  border: none;
-  color: white;
-  padding: 0.5rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 600;
-  display: block;
-  margin: 0 auto;
-  transition: background 0.2s ease;
-}
-
-.demo-btn:hover {
-  background: #00a800;
-}
-
-/* Responsive */
-@media (max-width: 576px) {
-  .demo-modal {
-    padding: 1rem;
-    max-width: 300px;
-  }
-  
-  .demo-title {
-    font-size: 1.1rem;
-  }
-  
-  .demo-item {
-    font-size: 0.85rem;
-  }
-  
-  .demo-item strong {
-    width: 60px;
-  }
 }
