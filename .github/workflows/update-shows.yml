@@ -2,7 +2,7 @@ name: Daily Show Date Update
 
 on:
   schedule:
-    - cron: '0 7 * * *'  # 12:30 PM IST (07:00 UTC)
+    - cron: '30 18 * * *'  # 12:00 AM IST
   workflow_dispatch:
 
 jobs:
