@@ -182,7 +182,7 @@
   box-shadow: none !important;
 }
 
-/* Demo Modal Styles - Based on Profile.css */
+/* Minimal Demo Modal Styles */
 .demo-overlay {
   position: fixed;
   top: 0;
@@ -192,243 +192,102 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 12, 7, 0.85);
-  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1050;
   font-family: 'Space Grotesk', sans-serif;
 }
 
-.demo-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 1rem;
-}
-
-.demo-card {
-  width: 100%;
-  max-width: 500px;
-  background-color: rgba(0, 12, 7, 0.2);
-  border: 1px solid rgba(0, 200, 0, 0.8);
-  border-radius: 1rem;
-  box-shadow: 0 10px 25px rgba(0, 201, 0, 0.5);
-  animation: fadeIn 0.3s ease-out;
-}
-
-.demo-card-body {
-  padding: 2rem;
+.demo-modal {
+  background: rgba(0, 12, 7, 0.95);
+  border: 1px solid rgba(0, 201, 0, 0.4);
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 350px;
+  width: 90%;
   position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.demo-close-btn {
+.demo-close {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
-  background: transparent;
+  background: none;
   border: none;
-  color: #aaaaaa;
+  color: #aaa;
   font-size: 1.5rem;
   cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
   padding: 0;
-  z-index: 1;
-}
-
-.demo-close-btn:hover {
-  color: #00c900;
-  background-color: rgba(0, 201, 0, 0.1);
-  transform: scale(1.1);
-}
-
-.demo-header {
-  text-align: center;
-  margin-bottom: 2rem;
-  position: relative;
-}
-
-.demo-icon-container {
-  margin: 0 auto 1rem;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background-color: rgba(0, 201, 0, 0.1);
-  border: 2px solid rgba(0, 201, 0, 0.5);
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color 0.2s ease;
 }
 
-.demo-main-icon {
+.demo-close:hover {
   color: #00c900;
-  font-size: 2.5rem;
 }
 
 .demo-title {
   color: #00c900;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  font-size: 1.75rem;
-}
-
-.demo-subtitle {
-  color: #aaaaaa;
-  font-size: 0.95rem;
-  margin-bottom: 0;
-}
-
-.demo-details {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.demo-detail-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.demo-detail-label {
-  color: #cccccc;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  margin: 0 0 1rem 0;
+  text-align: center;
 }
 
-.demo-detail-icon {
-  color: #00c900;
-  font-size: 1rem;
+.demo-content {
+  margin-bottom: 1.5rem;
 }
 
-.demo-detail-value {
-  color: #ffffff;
-  font-size: 1rem;
-  padding: 0.75rem;
-  background-color: rgba(0, 136, 0, 0.1);
-  border: 1px solid rgba(0, 201, 0, 0.3);
-  border-radius: 0.375rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding-left: 1rem;
-  font-weight: 500;
-  letter-spacing: 0.5px;
+.demo-item {
+  color: #fff;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
 }
 
-.demo-info-note {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #aaaaaa;
-  font-size: 0.85rem;
-  padding: 0.75rem;
-  background-color: rgba(0, 136, 0, 0.05);
-  border: 1px solid rgba(0, 201, 0, 0.2);
-  border-radius: 0.375rem;
-  margin-top: 0.5rem;
+.demo-item strong {
+  color: #ccc;
+  display: inline-block;
+  width: 70px;
 }
 
-.demo-info-icon {
-  color: #00c900;
-  font-size: 1rem;
-  flex-shrink: 0;
-}
-
-.demo-footer {
-  display: flex;
-  justify-content: center;
-  margin-top: 1.5rem;
-}
-
-.demo-btn-primary {
-  background: linear-gradient(135deg, #00c900 0%, #008800 100%);
+.demo-btn {
+  background: #00c900;
   border: none;
   color: white;
-  padding: 0.75rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 4px 15px rgba(0, 201, 0, 0.3);
-  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: block;
+  margin: 0 auto;
+  transition: background 0.2s ease;
 }
 
-.demo-btn-primary:hover {
-  background: linear-gradient(135deg, #00e000 0%, #00aa00 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 201, 0, 0.4);
+.demo-btn:hover {
+  background: #00a800;
 }
 
-.demo-btn-primary:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 10px rgba(0, 201, 0, 0.3);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive Adjustments for Demo Modal */
+/* Responsive */
 @media (max-width: 576px) {
-  .demo-card-body {
-    padding: 1.5rem;
-  }
-  
-  .demo-close-btn {
-    top: 0.25rem;
-    right: 0.25rem;
-    width: 2rem;
-    height: 2rem;
-    font-size: 1.25rem;
+  .demo-modal {
+    padding: 1rem;
+    max-width: 300px;
   }
   
   .demo-title {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
   }
   
-  .demo-detail-value {
-    font-size: 0.9rem;
+  .demo-item {
+    font-size: 0.85rem;
   }
   
-  .demo-icon-container {
-    width: 70px;
-    height: 70px;
-  }
-  
-  .demo-main-icon {
-    font-size: 2rem;
-  }
-  
-  .demo-btn-primary {
-    padding: 0.65rem 1.5rem;
-    font-size: 0.9rem;
-  }
-}
-
-/* Touch target improvements */
-@media (pointer: coarse) {
-  .demo-close-btn {
-    width: 3rem;
-    height: 3rem;
-    font-size: 1.75rem;
+  .demo-item strong {
+    width: 60px;
   }
 }

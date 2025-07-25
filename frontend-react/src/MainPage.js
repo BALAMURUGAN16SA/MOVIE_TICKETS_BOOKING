@@ -156,67 +156,34 @@ function App() {
         />
       )}
 
-      {/* Custom Styled Modal */}
+      {/* Minimal Demo Modal */}
       {showDummyPopup && (
         <div className="demo-overlay">
-          <div className="demo-container">
-            <div className="demo-card">
-              <div className="demo-card-body">
-                <button 
-                  className="demo-close-btn"
-                  onClick={() => setShowDummyPopup(false)}
-                  aria-label="Close"
-                >
-                  ×
-                </button>
-                
-                <div className="demo-header">
-                  <div className="demo-icon-container">
-                    <i className="fas fa-user demo-main-icon"></i>
-                  </div>
-                  <h3 className="demo-title">Try without Registering</h3>
-                  <p className="demo-subtitle">Use these demo credentials to explore the app</p>
-                </div>
-
-                <div className="demo-details">
-                  <div className="demo-detail-item">
-                    <div className="demo-detail-label">
-                      <i className="fas fa-envelope demo-detail-icon"></i>
-                      Email Address
-                    </div>
-                    <div className="demo-detail-value">
-                      <i className="fas fa-envelope demo-detail-icon"></i>
-                      user001@gmail.com
-                    </div>
-                  </div>
-
-                  <div className="demo-detail-item">
-                    <div className="demo-detail-label">
-                      <i className="fas fa-lock demo-detail-icon"></i>
-                      Password
-                    </div>
-                    <div className="demo-detail-value">
-                      <i className="fas fa-lock demo-detail-icon"></i>
-                      user001
-                    </div>
-                  </div>
-
-                  <div className="demo-info-note">
-                    <i className="fas fa-info-circle demo-info-icon"></i>
-                    <span>These credentials are for demonstration purposes only</span>
-                  </div>
-                </div>
-
-                <div className="demo-footer">
-                  <button 
-                    className="demo-btn-primary"
-                    onClick={() => setShowDummyPopup(false)}
-                  >
-                    Got it
-                  </button>
-                </div>
+          <div className="demo-modal">
+            <button 
+              className="demo-close"
+              onClick={() => setShowDummyPopup(false)}
+            >
+              ×
+            </button>
+            
+            <h3 className="demo-title">Demo Credentials</h3>
+            
+            <div className="demo-content">
+              <div className="demo-item">
+                <strong>Email:</strong> user001@gmail.com
+              </div>
+              <div className="demo-item">
+                <strong>Password:</strong> user001
               </div>
             </div>
+            
+            <button 
+              className="demo-btn"
+              onClick={() => setShowDummyPopup(false)}
+            >
+              Got it
+            </button>
           </div>
         </div>
       )}
