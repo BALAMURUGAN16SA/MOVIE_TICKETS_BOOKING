@@ -288,7 +288,7 @@ const Seats = () => {
           <div className="info-card">
             <h2 className="info-title">
               <FaFilm className="me-2" />
-              {theaterName.toUpperCase()}
+              {theaterName.toUpperCase()}  'SCREEN' - {screenId}
             </h2>
             <p className="info-subtitle">
               <FaMapMarkerAlt className="me-2" />

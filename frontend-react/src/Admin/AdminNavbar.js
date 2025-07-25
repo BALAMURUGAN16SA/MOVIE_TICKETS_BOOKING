@@ -120,7 +120,7 @@ const AdminNavbar = () => {
               fontWeight: '800',
               letterSpacing: '-0.5px'
             }}>
-              DbaasT Admin
+              Bala - MBT Admin
             </span>
           </Offcanvas.Title>
         </Offcanvas.Header>

@@ -177,7 +177,7 @@ const CustomNavbar = ({ setShowProfile, loginOutButton, setLoginOutButton, setSh
               fontWeight: '800',
               letterSpacing: '-0.5px'
             }}>
-              DbaasT
+              Bala - MBT
             </span>
           </Offcanvas.Title>
         </Offcanvas.Header>

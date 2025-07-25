@@ -44,7 +44,7 @@ const Footer = () => {
           {/* Copyright - Centered */}
           <Col xs={12} className="text-center mt-4">
             <div className="copyright-text">
-              © {new Date().getFullYear()} DbaasT. All rights reserved.
+              © {new Date().getFullYear()} Bala - MBT. All rights reserved.
             </div>
           </Col>
         </Row>

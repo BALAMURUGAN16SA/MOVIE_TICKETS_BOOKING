@@ -93,7 +93,7 @@ const CustomNavbar = ({ setShowProfile, loginOutButton, setLoginOutButton, setSh
               fontSize: '1.75rem',
               letterSpacing: '-0.5px',
             }}>
-              DbaasT
+              Bala - MBT
             </span>
           </Navbar.Brand>
 
@@ -170,7 +170,7 @@ const CustomNavbar = ({ setShowProfile, loginOutButton, setLoginOutButton, setSh
               fontWeight: '800',
               letterSpacing: '-0.5px'
             }}>
-              DbaasT
+              Bala - MBT
             </span>
           </Offcanvas.Title>
         </Offcanvas.Header>
