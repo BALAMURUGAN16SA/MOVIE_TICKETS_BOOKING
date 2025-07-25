@@ -150,7 +150,7 @@ This project is aimed to demonstrate a fully efficient Movie Ticket Bookig throu
 
   ![Payment](screenshots/pic8.png)
 
-- Concurrent Seat Booking Failure during payment
+- Concurrent Seat Booking Failure during payment - Multiple Users trying to book same seat at same time
 
   ![Concurrent](screenshots/pic17.png)
   
