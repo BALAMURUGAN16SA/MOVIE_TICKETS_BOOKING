@@ -139,7 +139,7 @@ const Login = ({ onLogin, onClose, onRegisterClick }) => {
                 </Button>
 
                 <div className="login-register-text">
-                  Quick demo? Use the guest credentials above.
+                  <span style={{color: '#00c900'}}>Quick demo?</span> Use the guest credentials above.
                 </div>
 
                 <div className="login-divider">

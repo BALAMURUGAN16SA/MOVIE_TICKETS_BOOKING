@@ -20,7 +20,7 @@ const Contact = ({ setShowContact }) => {
               <div className="contact-icon-container">
                 <HiOutlineTicket className="contact-main-icon" />
               </div>
-              <h1 className="contact-title">Contact DbaasT</h1>
+              <h1 className="contact-title">Contact Bala - MTB</h1>
             </div>
 
             {/* Contact Details */}
@@ -47,7 +47,7 @@ const Contact = ({ setShowContact }) => {
                       <span>Email</span>
                     </div>
                     <div className="contact-detail-value">
-                      contact@dbaast.com
+                      contact@balamtb.com
                     </div>
                   </div>
                 </Col>

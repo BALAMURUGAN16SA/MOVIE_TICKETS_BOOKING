@@ -156,7 +156,7 @@ const CustomNavbar = ({ setShowProfile, loginOutButton, setLoginOutButton, setSh
                   </Button>
                 )}
                 <Button variant="success" className="contact-btn px-4 py-2" onClick={() => setShowContact(true)}>
-                  Contact Us
+                  Contact
                 </Button>
               </div>
             </Navbar.Collapse>
