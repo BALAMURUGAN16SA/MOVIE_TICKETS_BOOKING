@@ -1,0 +1,29 @@
+name: Daily Show Date Update
+
+on:
+  schedule:
+    - cron: '0 7 * * *'  # 12:30 PM IST (07:00 UTC)
+  workflow_dispatch:
+
+jobs:
+  update-db:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install psycopg2-binary
+
+      - name: Run update script
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          python backend/date_update.py
