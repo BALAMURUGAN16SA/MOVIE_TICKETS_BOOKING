@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { ButtonGroup, ToggleButton } from 'react-bootstrap';
+import { ButtonGroup, ToggleButton, Modal, Button } from 'react-bootstrap';
 import CustomNavbar from './components/CustomNavbar';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
