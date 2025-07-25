@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { ButtonGroup, ToggleButton, Modal, Button } from 'react-bootstrap';
-import { User, Mail, Lock, Info } from 'lucide-react';
+import { ButtonGroup, ToggleButton } from 'react-bootstrap';
 import CustomNavbar from './components/CustomNavbar';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
@@ -173,7 +172,7 @@ function App() {
                 
                 <div className="demo-header">
                   <div className="demo-icon-container">
-                    <User className="demo-main-icon" />
+                    <i className="fas fa-user demo-main-icon"></i>
                   </div>
                   <h3 className="demo-title">Try without Registering</h3>
                   <p className="demo-subtitle">Use these demo credentials to explore the app</p>
@@ -182,28 +181,28 @@ function App() {
                 <div className="demo-details">
                   <div className="demo-detail-item">
                     <div className="demo-detail-label">
-                      <Mail className="demo-detail-icon" />
+                      <i className="fas fa-envelope demo-detail-icon"></i>
                       Email Address
                     </div>
                     <div className="demo-detail-value">
-                      <Mail className="demo-detail-icon" />
+                      <i className="fas fa-envelope demo-detail-icon"></i>
                       user001@gmail.com
                     </div>
                   </div>
 
                   <div className="demo-detail-item">
                     <div className="demo-detail-label">
-                      <Lock className="demo-detail-icon" />
+                      <i className="fas fa-lock demo-detail-icon"></i>
                       Password
                     </div>
                     <div className="demo-detail-value">
-                      <Lock className="demo-detail-icon" />
+                      <i className="fas fa-lock demo-detail-icon"></i>
                       user001
                     </div>
                   </div>
 
                   <div className="demo-info-note">
-                    <Info className="demo-info-icon" />
+                    <i className="fas fa-info-circle demo-info-icon"></i>
                     <span>These credentials are for demonstration purposes only</span>
                   </div>
                 </div>
