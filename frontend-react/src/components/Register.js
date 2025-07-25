@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Form, Button, Card, CloseButton, Alert,  Toast, ToastContainer } from 'react-bootstrap';
-import { FaGoogle, FaLock, FaUser, FaMapMarkerAlt, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaGoogle, FaLock, FaUser, FaMapMarkerAlt, FaEye, FaEyeSlash } from 'react-icons/fa';
 import './Register.css';
 
 const Register = ({ onRegister, onClose, onLoginClick }) => {

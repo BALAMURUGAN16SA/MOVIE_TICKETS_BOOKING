@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Card, CloseButton, Toast, ToastContainer } from 'react-bootstrap';
-import { FaGoogle, FaLock, FaUser, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaGoogle, FaUser, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useAuth } from './Auth';
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
