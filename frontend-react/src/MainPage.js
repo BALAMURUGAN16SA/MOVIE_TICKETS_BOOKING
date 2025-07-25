@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { ButtonGroup, ToggleButton } from 'react-bootstrap';
 import CustomNavbar from './components/CustomNavbar';
 import Sidebar from './components/Sidebar';
@@ -20,6 +20,8 @@ function App() {
   const [showHistory, setShowHistory] = useState(false);
   const [viewMode, setViewMode] = useState('movies');
   const [showContact, setShowContact] = useState(false);
+  const [showDummyPopup, setShowDummyPopup] = useState(false);
+
   const moviesSectionRef = useRef(null);
     const handleMovieClick = () => {
       setViewMode('movies');
@@ -49,6 +51,14 @@ function App() {
   const profileMemo = useMemo(() => (
     <Profile setShowProfile={stableSetShowProfile} />
   ), [stableSetShowProfile]);
+
+  useEffect(() => {
+  const alreadyShown = sessionStorage.getItem('dummyPopupShown');
+  if (!alreadyShown) {
+    setShowDummyPopup(true);
+    sessionStorage.setItem('dummyPopupShown', 'true');
+  }
+  }, []);
 
   return (
     <>
@@ -144,6 +154,25 @@ function App() {
             setShowHistory={setShowHistory}
         />
       )}
+
+      <Modal show={showDummyPopup} onHide={() => setShowDummyPopup(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Try without Registering</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p><strong>Email:</strong> user001@gmail.com</p>
+          <p><strong>Password:</strong> user001</p>
+          <p className="text-muted" style={{ fontSize: '0.9em' }}>
+            Use these credentials to explore the app freely.
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={() => setShowDummyPopup(false)}>
+            Got it
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
     </>
   );
 }
