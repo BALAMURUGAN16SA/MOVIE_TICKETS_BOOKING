@@ -17,21 +17,25 @@ CORS(app, origins=["http://localhost:3000", "https://movie-tickets-booking-balam
 JWT_SECRET_KEY = config.jwt_secret_key
 JWT_REFRESH_KEY = config.jwt_refresh_key
 
+# @app.route('/ping')
+# def ping():
+#     try:
+#         con, cur = db.db_connect()
+#         cur.execute("SELECT 1")
+#         result = cur.fetchone()
+#         return {"status": "Render alive", "db_alive": bool(result)}, 200
+#     except Exception as e:
+#         return {"status": "Render alive", "db_alive": False, "error": str(e)}, 500
+#     finally:
+#         try:
+#             cur.close()
+#             con.close()
+#         except:
+#             pass
+
 @app.route('/ping')
 def ping():
-    try:
-        con, cur = db.db_connect()
-        cur.execute("SELECT 1")
-        result = cur.fetchone()
-        return {"status": "Render alive", "db_alive": bool(result)}, 200
-    except Exception as e:
-        return {"status": "Render alive", "db_alive": False, "error": str(e)}, 500
-    finally:
-        try:
-            cur.close()
-            con.close()
-        except:
-            pass
+   return {"status": "Render alive"}, 200
 
 @app.route("/")
 def fetch_movies():
