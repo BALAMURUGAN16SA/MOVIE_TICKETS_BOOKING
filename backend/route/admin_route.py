@@ -114,7 +114,40 @@ def admin_required(function):
         return function(*args, **kwargs)
     return wrapper
 
+@admin_bp.route("/todaybookings")
+@admin_required
+def today_bookings():
+    con, cur = db.db_connect()
+    query = "select * from bookings order by booking_id;"
+    cur.execute(query)
+    rows = cur.fetchall()
 
+    books = []
+    for row in rows:
+        book = dict(row)
+        book['show_date'] = book['show_date'].isoformat()
+        book['show_time'] = str(book['show_time'])
+        book['book_date'] = book['book_date'].isoformat()
+        books.append(book)
+    return jsonify(books)
+
+@admin_bp.route("/allbookings")
+@admin_required
+def all_bookings():
+    con, cur = db.db_connect()
+    query = "select * from all_bookings order by booking_id;"
+    cur.execute(query)
+    rows = cur.fetchall()
+
+    books = []
+    for row in rows:
+        book = dict(row)
+        book['show_date'] = book['show_date'].isoformat()
+        book['show_time'] = str(book['show_time'])
+        book['book_date'] = book['book_date'].isoformat()
+        books.append(book)
+    return jsonify(books)
+    
 @admin_bp.route("/add-movies", methods=['POST'])
 @admin_required
 def add_movies():
