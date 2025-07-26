@@ -62,7 +62,9 @@ const Admin = () => {
           Welcome to Admin Dashboard
         </h1>
         
-        <Accordion defaultActiveKey={['0', '1', '2', '3']} alwaysOpen>
+        <Accordion defaultActiveKey={['0', '1', '2', '3', '4', '5']} alwaysOpen>
+          <ShowTodayBookingsAccordionItem />
+          <ShowAllBookingsAccordionItem />
           <MoviesAccordionItem />
           <TheatersAccordionItem />
           <ScreensAccordionItem />
@@ -70,6 +72,285 @@ const Admin = () => {
         </Accordion>
       </Container>
     </>
+  );
+};
+
+const ShowTodayBookingsAccordionItem = () => {
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { accessToken, refreshToken, setAccessToken } = useAuth();
+
+  const fetchWithAuth = async (url, options = {}, retryCount = 0) => {
+    try {
+      const response = await fetch(url, {
+        ...options,
+        headers: {
+          ...options.headers,
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (data.error === "Access token expired" && retryCount < 1) {
+          const refreshResponse = await fetch("https://movie-tickets-booking-8bn9.onrender.com/user/refresh", {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${refreshToken}`
+            }
+          });
+
+          const refreshData = await refreshResponse.json();
+
+          if (!refreshResponse.ok) {
+            throw new Error(refreshData.error || "Failed to refresh token");
+          }
+
+          setAccessToken(refreshData.access_token);
+        
+          // Use the fresh token directly in the retry - don't rely on state
+          return await fetch(url, {
+            ...options,
+            headers: {
+              ...options.headers,
+              'Authorization': `Bearer ${refreshData.access_token}`, // Use fresh token here
+              'Content-Type': 'application/json'
+            }
+          }).then(response => response.json());
+        }
+        throw new Error(data.error || "Request failed");
+      }
+
+      return data;
+    } catch (err) {
+      console.error("API Error:", err);
+      throw err;
+    }
+  };
+
+  useEffect(() => {
+    const fetchTodayBookings = async () => {
+      try {
+        const data = await fetchWithAuth('https://movie-tickets-booking-8bn9.onrender.com/admin/todaybookings');
+        setBookings(data);
+      } catch (err) {
+        setError(err.message);
+        console.error('Error fetching today\'s bookings:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTodayBookings();
+  }, [accessToken, setAccessToken]);
+
+  return (
+    <Accordion.Item eventKey="0" className="admin-accordion-item">
+      <Accordion.Header className="accordion-header">
+        <h2 className="mb-0">Today's Bookings</h2>
+      </Accordion.Header>
+      <Accordion.Body>
+        {loading ? (
+          <div className="text-center">
+            <Spinner animation="border" variant="success" />
+          </div>
+        ) : bookings.length === 0 ? (
+          <div className="text-center">
+            <p>No bookings found for today.</p>
+          </div>
+        ) : (
+          <div className="table-responsive">
+            <Table hover className="admin-table">
+              <thead>
+                <tr>
+                  <th>Booking ID</th>
+                  <th>User Mail</th>
+                  <th>Theater ID</th>
+                  <th>Show ID</th>
+                  <th>Movie ID</th>
+                  <th>Screen ID</th>
+                  <th>Seats</th>
+                  <th>Total Amount</th>
+                  <th>Booking Date</th>
+                  <th>Show Date</th>
+                  <th>Show Time</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {bookings.map(booking => (
+                  <tr key={booking.booking_id}>
+                    <td>{booking.booking_id}</td>
+                    <td>{booking.email}</td>
+                    <td>{booking.theater_id}</td>
+                    <td>{booking.show_id}</td>
+                    <td>{booking.movie_id}</td>
+                    <td>{booking.screen_id}</td>
+                    <td>{booking.total_seats}</td>
+                    <td>₹{booking.total_price}</td>
+                    <td>{booking.book_date}</td>
+                    <td>{booking.show_date}</td>
+                    <td>{booking.show_time}</td>
+                    {/* Uncomment if you want delete functionality */}
+                    <td>
+                      <Button 
+                        variant="outline-success" 
+                        disabled
+                        style={{ border: '2px solid green', color: 'green', cursor: 'not-allowed' }}
+                      >
+                        BOOKED
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
+        )}
+      </Accordion.Body>
+    </Accordion.Item>
+  );
+};
+
+const ShowAllBookingsAccordionItem = () => {
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { accessToken, refreshToken, setAccessToken } = useAuth();
+
+  const fetchWithAuth = async (url, options = {}, retryCount = 0) => {
+    try {
+      const response = await fetch(url, {
+        ...options,
+        headers: {
+          ...options.headers,
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (data.error === "Access token expired" && retryCount < 1) {
+          const refreshResponse = await fetch("https://movie-tickets-booking-8bn9.onrender.com/user/refresh", {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${refreshToken}`
+            }
+          });
+
+          const refreshData = await refreshResponse.json();
+
+          if (!refreshResponse.ok) {
+            throw new Error(refreshData.error || "Failed to refresh token");
+          }
+
+          setAccessToken(refreshData.access_token);
+        
+          // Use the fresh token directly in the retry - don't rely on state
+          return await fetch(url, {
+            ...options,
+            headers: {
+              ...options.headers,
+              'Authorization': `Bearer ${refreshData.access_token}`, // Use fresh token here
+              'Content-Type': 'application/json'
+            }
+          }).then(response => response.json());
+        }
+        throw new Error(data.error || "Request failed");
+      }
+
+      return data;
+    } catch (err) {
+      console.error("API Error:", err);
+      throw err;
+    }
+  };
+
+  useEffect(() => {
+    const fetchTodayBookings = async () => {
+      try {
+        const data = await fetchWithAuth('https://movie-tickets-booking-8bn9.onrender.com/admin/allbookings');
+        setBookings(data);
+      } catch (err) {
+        setError(err.message);
+        console.error('Error fetching today\'s bookings:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTodayBookings();
+  }, [accessToken, setAccessToken]);
+
+  return (
+    <Accordion.Item eventKey="1" className="admin-accordion-item">
+      <Accordion.Header className="accordion-header">
+        <h2 className="mb-0">All Bookings</h2>
+      </Accordion.Header>
+      <Accordion.Body>
+        {loading ? (
+          <div className="text-center">
+            <Spinner animation="border" variant="success" />
+          </div>
+        ) : bookings.length === 0 ? (
+          <div className="text-center">
+            <p>No bookings found for today.</p>
+          </div>
+        ) : (
+          <div className="table-responsive">
+            <Table hover className="admin-table">
+              <thead>
+                <tr>
+                  <th>Booking ID</th>
+                  <th>User Mail</th>
+                  <th>Theater ID</th>
+                  <th>Show ID</th>
+                  <th>Movie ID</th>
+                  <th>Screen ID</th>
+                  <th>Seats</th>
+                  <th>Total Amount</th>
+                  <th>Booking Date</th>
+                  <th>Show Date</th>
+                  <th>Show Time</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {bookings.map(booking => (
+                  <tr key={booking.booking_id}>
+                    <td>{booking.booking_id}</td>
+                    <td>{booking.email}</td>
+                    <td>{booking.theater_id}</td>
+                    <td>{booking.show_id}</td>
+                    <td>{booking.movie_id}</td>
+                    <td>{booking.screen_id}</td>
+                    <td>{booking.total_seats}</td>
+                    <td>₹{booking.total_price}</td>
+                    <td>{booking.book_date}</td>
+                    <td>{booking.show_date}</td>
+                    <td>{booking.show_time}</td>
+                    <td>
+                      <Button 
+                        variant="outline-success" 
+                        disabled
+                        style={{ border: '2px solid green', color: 'green', cursor: 'not-allowed' }}
+                      >
+                        {booking.status.toUpperCase()}
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
+        )}
+      </Accordion.Body>
+    </Accordion.Item>
   );
 };
 
