@@ -47,7 +47,7 @@ const Contact = ({ setShowContact }) => {
                       <span>Email</span>
                     </div>
                     <div className="contact-detail-value">
-                      contact@balamtb.com
+                      balamurugan16sa@gmail.com
                     </div>
                   </div>
                 </Col>
