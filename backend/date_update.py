@@ -9,7 +9,7 @@ def update_show_dates_to_today():
         UPDATE shows
         SET show_date = %s
         """
-        today  = date.today() + timedelta(days=5)
+        today  = date.today() + timedelta(days=1)
         cur.execute(update_query, (today, ))
 
         con.commit()
