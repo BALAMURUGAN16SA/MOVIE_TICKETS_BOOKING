@@ -140,6 +140,7 @@ const Login = ({ onLogin, onClose, onRegisterClick }) => {
 
                 <div className="login-register-text">
                   <span style={{color: '#00c900'}}>Quick demo?</span> Use the guest credentials above.
+                  <span style={{color: '#00c900'}}>Admin </span> Please log in with Admin credentials.
                 </div>
 
                 <div className="login-divider">
