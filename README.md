@@ -101,7 +101,7 @@ This project is aimed to demonstrate a fully efficient Movie Ticket Bookig throu
 
 ---
 
-**Microservices:**
+**Modules:**
 
 - JWT Authentication.
 - React Authorization Guarding.
