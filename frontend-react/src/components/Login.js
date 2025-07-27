@@ -1,4 +1,4 @@
-fimport React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Card, CloseButton, Toast, ToastContainer } from 'react-bootstrap';
 import { FaGoogle, FaUser, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useAuth } from './Auth';
