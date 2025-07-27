@@ -318,6 +318,8 @@ const Register = ({ onRegister, onClose, onLoginClick }) => {
               
               <div className="register-login-text">
                    <span style={{color: '#00c900'}}>Quick demo?</span> Use the guest credentials in login.
+                   <br></br>
+                   Contact <a href="https://www.linkedin.com/in/balamurugan16sa/" style={{color: '#00c900'}}>Super Admin</a> to register as Admin.
               </div>
 
               <div className="register-divider">
