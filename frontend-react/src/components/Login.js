@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+fimport React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Card, CloseButton, Toast, ToastContainer } from 'react-bootstrap';
 import { FaGoogle, FaUser, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useAuth } from './Auth';
@@ -140,6 +140,7 @@ const Login = ({ onLogin, onClose, onRegisterClick }) => {
 
                 <div className="login-register-text">
                   <span style={{color: '#00c900'}}>Quick demo?</span> Use the guest credentials above.
+                  <br></br>
                   <span style={{color: '#00c900'}}>Admin </span> Please log in with Admin credentials.
                 </div>
 
