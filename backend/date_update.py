@@ -1,19 +1,25 @@
 import psycopg2
-from datetime import date, timedelta
+from datetime import datetime, timedelta
+import pytz
 import db
+
 def update_show_dates_to_today():
     try:
         con, cur = db.db_connect()
+
+        # Get current time in IST
+        ist = pytz.timezone('Asia/Kolkata')
+        ist_now = datetime.now(ist)
+        ist_tomorrow = ist_now.date() + timedelta(days=1)
 
         update_query = """
         UPDATE shows
         SET show_date = %s
         """
-        today  = date.today() + timedelta(days=1)
-        cur.execute(update_query, (today, ))
+        cur.execute(update_query, (ist_tomorrow, ))
 
         con.commit()
-        print(f"Show dates updated to {today} successfully.")
+        print(f"Show dates updated to {ist_tomorrow} successfully.")
 
         cur.close()
 
