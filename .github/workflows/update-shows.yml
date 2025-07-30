@@ -2,7 +2,7 @@ name: Daily Show Date Update
 
 on:
   schedule:
-    - cron: '00 00 * * *' # 02:00 AM IST
+    - cron: '00 02 * * *'
   workflow_dispatch:
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install psycopg2-binary
+          pip install psycopg2-binary pytz
 
       - name: Run update script
         env:
