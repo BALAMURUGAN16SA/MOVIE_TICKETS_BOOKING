@@ -10,7 +10,7 @@ def update_show_dates_to_today():
         # Get current time in IST
         ist = pytz.timezone('Asia/Kolkata')
         ist_now = datetime.now(ist)
-        ist_tomorrow = ist_now.date() + timedelta(days=2)
+        ist_tomorrow = ist_now.date() + timedelta(days=1)
 
         update_query = """
         UPDATE shows
